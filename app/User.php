@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','login'
     ];
 
     /**
@@ -36,4 +36,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function gender() {
+        return $this->belongsTo(Gender::class,'gender_id','id');
+    }
+
+    public function city() {
+        return $this->belongsTo(City::class,'city_id','id');
+    }
+
+    public function country() {
+        return $this->belongsTo(Country::class,'country_id','id');
+    }
+
+    public function confirmedEmail() {
+        return !! $this->is_confirmed_email;
+    }
+
+    public function confirmedPhone() {
+        return !! $this->is_confirmed_phone;
+    }
 }

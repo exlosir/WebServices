@@ -14,7 +14,7 @@ class AddRelationshipUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table){
-            $table->foreign('gender_id')->references('id')->on('gender');
+            $table->foreign('gender_id')->references('id')->on('genders');
             $table->foreign('country_id')->references('id')->on('countries');
             $table->foreign('city_id')->references('id')->on('cities');
         });

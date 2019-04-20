@@ -12,8 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 Auth::routes();
 
+Route::get('/logout', function () {
+   auth()->logout();
+   return redirect('/login');
+})->middleware('auth');
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::group(['prefix'=>'profile', 'middleware'=>'auth'], function(){
+    Route::get('/', 'ProfileController@index')->name('profile');
+    Route::post('/save', 'ProfileController@save')->name('profile_save');
+});
