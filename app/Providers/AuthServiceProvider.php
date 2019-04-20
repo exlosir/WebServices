@@ -25,6 +25,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('userEmailConfirmed', function ($user) {
+            if($user->confirmedEmail()) {
+                return true;
+            }
+
+            return false;
+        });
+
     }
 }

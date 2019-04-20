@@ -25,7 +25,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 
-Route::group(['prefix'=>'profile', 'middleware'=>'auth'], function(){
+Route::group(['prefix'=>'profile', 'middleware'=>['auth']], function(){
     Route::get('/', 'ProfileController@index')->name('profile');
     Route::post('/save', 'ProfileController@save')->name('profile_save');
+
+    /*Подтверждение E-mail*/
+
+    Route::get('/request-confirmation-email', "ConfirmationEmailController@request")->name('request-confirmation-email')->middleware('checkUserConfirmedEmail');
+    Route::post('/send-confirmation-email', "ConfirmationEmailController@sendEmail")->name('send-confirmation-email');
+    Route::get('/confirm-email/{user}/{token}', "ConfirmationEmailController@confirm")->name('confirm-email')->middleware(['except'=>'auth']);
+});
+
+Route::group(['prefix'=>'orders', 'middleware'=>['auth']], function(){
+    Route::get('/', 'OrderController@index')->name('orders');
 });

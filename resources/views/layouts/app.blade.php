@@ -57,7 +57,7 @@
                     @auth
                         <li><a href="{{url('/home')}}" class="text-center"><i class="icon fas fa-home"></i>Домашняя страница</a></li>
                         <li><a href="{{route('profile')}}" class="text-center"><i class="icon fas fa-address-card"></i>Профиль</a></li>
-                        <li><a href="" class="text-center"><i class="fas fa-tasks icon"></i>Заказы</a></li>
+                        @can('userEmailConfirmed', auth()->user())<li><a href="{{route('orders')}}" class="text-center"><i class="fas fa-tasks icon"></i>Заказы</a></li>@endcan
                     @endauth
                     @guest
                         <li><a href="{{route('register')}}" class="text-center">Регистрация</a></li>
