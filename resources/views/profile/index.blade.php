@@ -14,7 +14,10 @@
                         @else
                             <img src="{{ asset('profiles/'.$user->email.'/'.$user->image_profile) }}" alt="" class="img-profile mb-3 btn-br">
                         @endif
-                            <span class="text-danger d-block"> Рейтинг {{ $user->rating ?? '0' }}</span>
+                            <span class="d-block"> Рейтинг: <i class="text-danger">{{ $user->rating ?? '0' }}</i></span>
+                            <span class="d-block"> Выполнено заказов: <i class="text-danger">0</i></span>
+                            <span class="d-block"> Заказов: <i class="text-danger">0</i></span>
+                            <span class="d-block"> <a href="{{route('user-page', $user->id)}}" class="text-muted">Посмотреть профиль со стороны</a></span>
                     </div>
                     <div class="col-9">
                         <nav>

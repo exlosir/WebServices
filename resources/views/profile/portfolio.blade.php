@@ -4,11 +4,11 @@
 
     <div class="container">
         <div class="row">
-                <h2><a class="btn-link" data-toggle="collapse" href="#addNewElement" role="button" aria-expanded="false" aria-controls="addNewElement">Портфолио</a></h2>
+                <h2 class="ml-3"><a class="btn-link" data-toggle="collapse" href="#addNewElement" role="button" aria-expanded="false" aria-controls="addNewElement">Портфолио</a></h2>
         </div>
 
         <div class="row">
-            <div class="collapse mb-4" id="addNewElement">
+            <div class="collapse mb-4 w-100" id="addNewElement">
                 <div class="card card-body">
 
                     <strong>Добавление новой работы в портфолио</strong>
