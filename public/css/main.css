@@ -77,6 +77,10 @@ body {
     padding: 0px 5px;
 }
 
+.nav-item-tabs {
+    padding: .5rem 1rem;
+}
+
 /*Оформление форм регистрации и авторизации*/
 .register-form {
     background: #13232f;
@@ -169,6 +173,10 @@ label {
 .link-mailru:hover {
     background-color: #0b94d4;
 }
+
+/*Оформление кнопки выбора файла*/
+
+
 
 
 /*Оформление шапки и мненю*/

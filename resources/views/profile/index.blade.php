@@ -6,11 +6,56 @@
         <h2>Профиль</h2>
         <div class="row mt-3">
             <div class="container">
-            <div class="col-3 col-sm-12">
-                <img src="{{ asset('assets/img-placeholder.png') }}" alt="" class="img-profile mb-3 btn-br">
-                <span class="text-danger d-block"> Рейтинг {{ $user->rating ?? '0' }}</span>
+            <div class="col-3 col-12">
+                <div class="row">
+                    <div class="col-3">
+                        @if(is_null($user->image_profile))
+                            <img src="{{ asset('assets/img-placeholder.png') }}" alt="" class="img-profile mb-3 btn-br">
+                        @else
+                            <img src="{{ asset('profiles/'.$user->email.'/'.$user->image_profile) }}" alt="" class="img-profile mb-3 btn-br">
+                        @endif
+                            <span class="text-danger d-block"> Рейтинг {{ $user->rating ?? '0' }}</span>
+                    </div>
+                    <div class="col-9">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-item-tabs nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-edit-photo" role="tab" aria-controls="nav-edit-photo" aria-selected="true">Изменение фотографии</a>
+                                <a class="nav-item nav-item-tabs nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-edit-password" role="tab" aria-controls="nav-edit-password" aria-selected="false">Изменение пароля</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade" id="nav-edit-photo" role="tabpanel" aria-labelledby="nav-edit-photo-tab">
+                                <form action="{{route('upload-profile-image')}}" method="POST" enctype= multipart/form-data>
+                                    @csrf
+                                    <div class="input-group mb-3 mt-3">
+                                        <div class="custom-file">
+                                            <input type="file"  id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="image">
+                                            {{--<label class="custom-file-label" for="inputGroupFile01">Выберите файл</label>--}}
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-outline-success btn-block">Загрузить фотографию</button>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="nav-edit-password" role="tabpanel" aria-labelledby="nav-edit-password-tab">
+                                <form action="{{route('change-password')}}" method="POST" class="form">
+                                    @csrf
+                                    <div class="form-group mb-3">
+                                        <label for="password" class="text-dark">Пароль</label>
+                                        <input type="password" id="password" name="password" class="form-input input text-dark">
+                                    </div>
+                                    <div class="form-group mb-5">
+                                        <label for="password_conf" class="text-dark">Подвтердите пароль</label>
+                                        <input type="password" id="password_conf" name="password_confirmation" class="form-input input text-dark">
+                                    </div>
+
+                                    <button type="submit" class="btn btn-outline-success">Изменить пароль</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-9 col-sm-12">
+            <div class="col-9 col-12">
                 <div>
                     <form class="form" action="{{ route('profile_save') }}" method="POST">
                         @csrf
@@ -103,7 +148,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12 align-self-center">
-                                E-mail <strong class="{{ !$user->confirmedEmail() ? "text-danger" : "text-success" }}"> {{ !$user->confirmedEmail() ? "не подтвержден" : "подтвержден " }}</strong> {{$user->email_verified_at->format('d.m.Y H:i:s')}}
+                                E-mail <strong class="{{ !$user->confirmedEmail() ? "text-danger" : "text-success" }}"> {{ !$user->confirmedEmail() ? "не подтвержден" : "подтвержден " }}</strong> {{$user->confirmedEmail() ? $user->email_verified_at->format('d.m.Y H:i:s') : ''}}
                             </div>
 
                         </div>
@@ -143,10 +188,10 @@
                     <div class="card border-danger">
                         <div class="card-body">
                             <h5 class="card-title text-center">Удалить аккаунт</h5>
-                            <form action="" class="form">
-
+                            <form action="{{route('delete-account')}}" class="form" method="post">
+                                {{method_field('DELETE')}}
+                                @csrf
                                 <button type="submit" class="btn btn-block btn-outline-danger text-dark" onclick="return confirm('Удалить аккаунт? Это действие нельзя будет отменить!')">Удалить</button>
-
                             </form>
                         </div>
                     </div>

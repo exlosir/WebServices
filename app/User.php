@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
@@ -38,6 +39,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'image'=>'array',
     ];
 
     public function gender() {
@@ -79,6 +81,11 @@ class User extends Authenticatable
     public function confirmedPhone() {
         return !! $this->is_confirmed_phone;
     }
+
+    public function deleteAccount() {
+        return $this->delete();
+    }
+
 
 
 

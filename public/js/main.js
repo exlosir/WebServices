@@ -7,6 +7,7 @@
         $('.nav-left-button').toggleClass('nav-left-button-active');
     });
 
+
 /*Подпись к инпутам*/
 $(document).ready(function(){
 

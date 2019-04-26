@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\App;
 
 class LoginController extends Controller
 {
@@ -17,6 +18,7 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
+
 
     use AuthenticatesUsers;
 
@@ -34,6 +36,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+
+        App::setLocale('ru');
         $this->middleware('guest')->except('logout');
     }
 

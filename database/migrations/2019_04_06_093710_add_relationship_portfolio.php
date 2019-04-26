@@ -13,7 +13,7 @@ class AddRelationshipPortfolio extends Migration
      */
     public function up()
     {
-        Schema::table('portfolio', function (Blueprint $table){
+        Schema::table('portfolios', function (Blueprint $table){
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -25,7 +25,7 @@ class AddRelationshipPortfolio extends Migration
      */
     public function down()
     {
-        Schema::table('portfolio', function (Blueprint $table){
+        Schema::table('portfolios', function (Blueprint $table){
             $table->dropForeign('portfolios_user_id_foreign');
         });
     }
