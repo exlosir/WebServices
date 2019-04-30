@@ -5,7 +5,7 @@
 <div class="container">
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">УХАДИ</h1>
+            <h1 class="display-4">Jumbotron</h1>
             <p class="lead">Это модифицированный jumbotron, который занимает все горизонтальное пространство своего родителя.</p>
         </div>
     </div>

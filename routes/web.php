@@ -54,6 +54,7 @@ Route::group(['prefix'=>'profile', 'middleware'=>['auth']], function(){
 
 Route::group(['prefix'=>'user', 'middleware'=>['auth']],function(){
     Route::get('/{id}', 'UserController@user')->name('user-page');
+    Route::get('/{id}/portfolio', 'UserController@extendUserPortfolio')->name('extend-user-portfolio');
 });
 
 Route::group(['prefix'=>'orders', 'middleware'=>['auth']], function(){

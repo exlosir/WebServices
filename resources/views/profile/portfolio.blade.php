@@ -4,7 +4,7 @@
 
     <div class="container">
         <div class="row">
-                <h2 class="ml-3"><a class="btn-link" data-toggle="collapse" href="#addNewElement" role="button" aria-expanded="false" aria-controls="addNewElement">Портфолио</a></h2>
+                <h2 class="ml-5"><a class="btn-link" data-toggle="collapse" href="#addNewElement" role="button" aria-expanded="false" aria-controls="addNewElement">Портфолио</a></h2>
         </div>
 
         <div class="row">
@@ -44,8 +44,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="row">
 
 
             <div class="card-columns">
@@ -95,6 +93,4 @@
 
             </div>
         </div>
-    </div>
-
 @endsection

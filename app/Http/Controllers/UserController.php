@@ -13,4 +13,10 @@ class UserController extends Controller
         $elements = Portfolio::where('user_id',$id)->take(6)->get();
         return view('user.page', compact(['user', 'elements']));
     }
+
+    public function extendUserPortfolio(Request $request, $id) {
+        $user = User::find($id);
+        $elements = Portfolio::where('user_id',$id)->paginate(12);
+        return view('user.extend-portfolio', compact(['user', 'elements']));
+    }
 }

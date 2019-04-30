@@ -54,11 +54,11 @@
             </div>
 
             {{--Блок портфолио--}}
-            <div class="row mb-5">
+            <div class="mb-5">
 
-                <h3 class="ml-4"><a href="" class="btn-link">Портфолио</a></h3>
+                <h3 class="ml-4"><a href="{{route('extend-user-portfolio', $user->id)}}" class="btn-link">Портфолио</a></h3>
                 <div class="card-columns">
-                    @if(!$elements->isEmpty())
+                    @empty($elemetns)
                         @foreach($elements as $element)
                             <div class="card">
                                 <div id="card{{$element->id}}" class="carousel slide" data-ride="carousel">
@@ -98,7 +98,7 @@
                                             <h2>Сожалеем, но у ваc пока не добавлено работ</h2>
                                         </div>
                                     </div>
-                                @endif
+                                @endempty
 
                             </div>
                 </div>
@@ -106,7 +106,7 @@
                 {{--Блок отзывов--}}
                 <div class="row">
 
-                    <h3 class="ml-3">Отзывы на мои работы</h3>
+                    <h3 class="ml-3">Отзывы на работы</h3>
                 </div>
 
             </div>
