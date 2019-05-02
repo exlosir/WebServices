@@ -32,6 +32,12 @@ class EmailConfirmation extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.email-confirmation');
+
+        $siteName = "randomworkdomen.tk";
+        return $this
+                    ->from('info@randomworkdomen.tk', 'Поддержка Easy Work')
+                    ->subject('Добро пожаловать на сайт ' . $siteName)
+                    ->cc('info@randomworkdomen.tk')
+                    ->view('mails.email-confirmation');
     }
 }

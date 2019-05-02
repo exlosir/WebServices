@@ -9,11 +9,6 @@
 
     <title>EasyWork</title>
 
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <script src="{{ asset('js/bootstrap.bundle.js') }}" defer></script>
-    <script src="{{ asset('js/main.js') }}" defer></script>
-
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
 
@@ -22,6 +17,7 @@
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-fixed-top nav-top">
@@ -80,4 +76,14 @@
         @yield('content')
     </main>
 </body>
+
+
+
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<script src="{{ asset('js/bootstrap.bundle.js') }}" defer></script>
+<script src="{{ asset('js/main.js') }}" defer></script>
+
+
 </html>

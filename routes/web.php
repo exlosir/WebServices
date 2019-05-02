@@ -58,5 +58,7 @@ Route::group(['prefix'=>'user', 'middleware'=>['auth']],function(){
 });
 
 Route::group(['prefix'=>'orders', 'middleware'=>['auth']], function(){
-    Route::get('/', 'OrderController@index')->name('orders');
+    Route::get('/{category?}', 'OrderController@index')->name('orders');
+    Route::get('/add', 'OrderController@add')->name('add-order');
+    Route::post('/add/save', 'OrderController@save')->name('save-order');
 });

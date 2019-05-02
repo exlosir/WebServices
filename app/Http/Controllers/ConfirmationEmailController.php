@@ -20,8 +20,8 @@ class ConfirmationEmailController extends Controller
         $token = $request->user()->getEmailConfirmationToken();
 
 
+//        Mail::to($request->user()->email)->send(new EmailConfirmation($request->user(), $token));
         Mail::to($request->user()->email)->send(new EmailConfirmation($request->user(), $token));
-
         return redirect()->route('profile')->with('success', 'На вашу почту было отправлено письмо для подтверждения E-mail!');
 
     }

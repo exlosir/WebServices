@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <h1>Чтобы подтвердить ваш E-mail, пожалуйста перейдите по ссылке ниже</h1>
-    <a href="{{route('confirm-email', [$user, $token])}}">Нажмите здесь</a>
+    <h1>Чтобы подтвердить ваш E-mail, пожалуйста перейдите по <a href="{{route('confirm-email', [$user, $token])}}">ссылке</a></h1>
 </body>
 </html>

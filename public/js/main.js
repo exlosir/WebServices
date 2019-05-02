@@ -18,8 +18,6 @@ $('.form').find('input, textarea, select').on('keyup blur focus change', functio
 
 
 
-
-
     if(e.type === 'keyup') {
         if(_this.val() === '') {
             _label.removeClass('label-active label-focus');
@@ -68,7 +66,12 @@ $('.form').find('input, textarea, select').on('keyup blur focus change', functio
             _label.removeClass('label-active');
         }
     }
+
+
+
+
 });
+    $('#CategoryCollapse').collapse();
 
 });
 // $('.form').find('input, textarea, select').on('focus', function(e){
