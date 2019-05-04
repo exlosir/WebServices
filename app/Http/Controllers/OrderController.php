@@ -18,14 +18,14 @@ class OrderController extends Controller
 
         if(Gate::allows('userEmailConfirmed', auth()->user())) {
             if(empty($category)) {
-                $orders = Order::all(); // выбираем все заказы, т.к не выбрана категория
+                $orders = Order::orderBy('created_at', 'desc')->paginate(12); // выбираем все заказы, т.к не выбрана категория
             } else {
-                $orders = Order::where('category_id',$category)->get(); //выбираем заказы указанной категории
+                $orders = Order::where('category_id',$category)->paginate(12); //выбираем заказы указанной категории
                 if($orders->isEmpty()) { // если не было найдено заказов по такой категории, ищем все заказы по родительской категории
                     $cat = Category::find($category); // выбираем категорию
                     if($cat->parent_id == null){ // проверяем, является ли категория родительской
-                        $cat = Category::where('parent_id',$cat->id)->get()->pluck('id')->toarray(); // выбираем все дочерние категории
-                        $orders = Order::whereIn('category_id',$cat)->get(); // выбираем все заказы, которые относятся к родительской и ее дочерним категориям
+                        $cat = Category::where('parent_id',$cat->id)->get(12)->pluck('id')->toarray(); // выбираем все дочерние категории
+                        $orders = Order::whereIn('category_id',$cat)->paginate(12); // выбираем все заказы, которые относятся к родительской и ее дочерним категориям
                     }
                 }
 
@@ -35,7 +35,7 @@ class OrderController extends Controller
             return view('orders.index', ['orders'=>$orders, 'categories'=>$categories]);
         }
 
-        return "Мы сожалеем, но для вас этот раздел закрыт, т.к вы не подтвердили E-mail!";
+        return redirect()->back()->with('warning', 'Мы сожалеем, но для вас этот раздел закрыт, т.к вы не подтвердили E-mail!');
     }
 
     public function add() {
@@ -81,4 +81,13 @@ class OrderController extends Controller
 
     }
 
+    public function indexMore($orderId) {
+        if(Gate::allows('userEmailConfirmed', auth()->user())) {
+            $order = Order::find($orderId);
+
+            return view('orders.more', ['order' => $order]);
+        } else {
+            return redirect()->back()->with('warning', 'Мы сожалеем, но для вас этот раздел закрыт, т.к вы не подтвердили E-mail!');
+        }
+    }
 }

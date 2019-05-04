@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\City;
 use App\Country;
 use App\Gender;
+use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -92,6 +94,40 @@ class ProfileController extends Controller
 
         return redirect()->back()->withErrors('Что-то пошло не так. Профиль не был удален!');
 
+    }
+
+    public function addRole(Request $request) {
+
+        $user = User::find($request->user()->id);
+        $role = Role::where('name', $request->roleName)->get();
+
+        if(!$user->roles()->get()->contains($role->first()->id)) {
+            $user->roles()->attach($role);
+            return json_encode(true);
+        }
+
+        return json_encode(false);
+
+    }
+
+    public function delRole(Request $request) {
+        $user = User::find($request->user()->id);
+        $role = Role::where('name', $request->roleName)->get();
+
+        if($user->roles()->get()->contains($role->first()->id)) {
+            $user->roles()->detach($role);
+            return json_encode(true);
+        }
+
+        return json_encode(false);
+
+    }
+
+    public function getRole(Request $request) {
+        $user = User::find($request->user()->id);
+        $role = Role::where('name', $request->roleName)->get();
+
+        return json_encode($user->roles()->get()->contains($role->first()->id));
     }
 
 

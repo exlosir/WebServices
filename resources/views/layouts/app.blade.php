@@ -20,6 +20,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
+<div id="app">
     <nav class="navbar navbar-fixed-top nav-top">
         <div class="container">
             <div class="col-6">
@@ -71,18 +72,19 @@
     </div>
 
 
-    @include('partials.alerts')
-    <main class="py-4">
-        @yield('content')
-    </main>
+        @include('partials.alerts')
+        <main class="py-4">
+            @yield('content')
+        </main>
+    </div>
 </body>
-
 
 
 
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script src="{{ asset('js/bootstrap.bundle.js') }}" defer></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{ asset('js/main.js') }}" defer></script>
 
 

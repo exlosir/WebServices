@@ -18,13 +18,13 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group mb-4">
-                                    <label class="text-dark">Название работы</label>
+                                    <label class="label text-dark">Название работы</label>
                                     <input type="text" name="name" class="form-input input text-dark" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="form-group mb-4">
-                                    <label class="text-dark">Описание</label>
+                                    <label class="label text-dark">Описание</label>
                                     <input type="text" name="description" class="form-input input text-dark" autocomplete="off">
                                     {{--<textarea ></textarea>--}}
                                 </div>

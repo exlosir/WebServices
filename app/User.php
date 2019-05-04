@@ -86,7 +86,14 @@ class User extends Authenticatable
         return $this->delete();
     }
 
+    public function roles() {
+        return $this->belongsToMany(Role::class,'user_role');
+    }
 
+    public function hasRole($string) {
+       $roleName =  Role::where('name', $string)->get();
+
+    }
 
 
 }

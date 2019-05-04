@@ -35,9 +35,9 @@ class EmailConfirmation extends Mailable
 
         $siteName = "randomworkdomen.tk";
         return $this
-                    ->from('info@randomworkdomen.tk', 'Поддержка Easy Work')
-                    ->subject('Добро пожаловать на сайт ' . $siteName)
-                    ->cc('info@randomworkdomen.tk')
+                    ->from('info@randomworkdomen.tk', "Техническая поддержка сайта ". $siteName)
+                    ->subject('Добро пожаловать на сайт ')
+//                    ->cc('info@randomworkdomen.tk')
                     ->view('mails.email-confirmation');
     }
 }

@@ -113,7 +113,7 @@ body {
 
 }
 
-label {
+.label {
     position: relative;
     left: 10px;
     top: 40px;
@@ -131,6 +131,7 @@ label {
 .label-focus {
     color: #fff;
 }
+
 
 .register-body {
 
@@ -359,4 +360,20 @@ label {
     float: left;
     padding-right: 1em;
     margin-bottom: -1.25em;
+}
+
+/*Оформление к заказам*/
+
+.order-header-wrapper {
+
+}
+
+.order-header {
+    padding-left: 1.3rem;
+    font-size: 20px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.order-header-bottom {
+
 }

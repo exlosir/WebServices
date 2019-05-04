@@ -96,7 +96,7 @@
                             <div class="card-footer">
                                 <div class="row">
                                     <div class="col">
-                                        <button type="button" class="btn btn-outline-primary btn-sm">Подробнее</button>
+                                        <a href="{{route('order-more', $order->id)}}" class="btn btn-outline-primary btn-sm">Подробнее</a>
                                     </div>
                                     <div class="col text-right">
                                         <small><strong>{{$order->category->where('id',$order->category->parent_id)->get()->first()->name }}</strong> > {{$order->category->name}}</small>
@@ -108,6 +108,8 @@
 
                     </div>
                 @endforeach
+
+                {{$orders->links()}}
             </div>
         </div>
     </div>

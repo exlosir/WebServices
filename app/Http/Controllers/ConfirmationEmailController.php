@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\EmailConfirmation;
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -30,10 +31,12 @@ class ConfirmationEmailController extends Controller
        $user =  User::where('email', $user->email)->where('confirmed_email_token', $token)->first();
 
         if(! $user) {
-            return redirect()->route('request-confirmation-email', $user);
+            return redirect()->route('request-confirmation-email', $user)->with('warning', 'Ссылка стала недействительной! Пожалуйста, попробуйте снова.');
         }
 
         $user->confirmEmail();
+        $role = Role::where('name', 'Заказчик')->get();
+        $user->roles()->attach($role);
 
         return redirect()->route('profile')->with('success', 'Ваш почтовый адрес успешно подтвержден. Для вас стали доступны заказы!');
 

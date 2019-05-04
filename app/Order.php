@@ -40,6 +40,14 @@ class Order extends Model
     }
 
     public function endOrder() {
-        return \Carbon\Carbon::parse($this->date_end) < \Carbon\Carbon::now() ? \Carbon\Carbon::parse($this->date_end)->longAbsoluteDiffForHumans(\Carbon\Carbon::now()) . ' назад' : \Carbon\Carbon::parse($this->date_end)->longAbsoluteDiffForHumans(\Carbon\Carbon::now());
+        return \Carbon\Carbon::parse($this->date_end) < \Carbon\Carbon::now() ? \Carbon\Carbon::parse($this->date_end)->shortAbsoluteDiffForHumans(\Carbon\Carbon::now()) . ' назад' : \Carbon\Carbon::parse($this->date_end)->shortAbsoluteDiffForHumans(\Carbon\Carbon::now());
+    }
+
+    public function users() {
+        return $this->belongsToMany(User::class, 'order_user', 'order_id');
+    }
+
+    public function getMastersCount() {
+        return $this->users->count();
     }
 }

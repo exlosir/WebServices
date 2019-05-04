@@ -15,12 +15,12 @@
                                     <form action="{{route('login')}}" method="POST">
                                         @csrf
                                         <div class="form-group mb-2">
-                                            <label for="login">Логин</label>
+                                            <label for="login" class="label">Логин</label>
                                             <input type="text" id="login" name="login" class="form-input input" autocomplete="off">
                                         </div>
 
                                         <div class="form-group mb-5">
-                                            <label for="password">Пароль</label>
+                                            <label for="password" class="label">Пароль</label>
                                             <input type="password" id="password" name="password" class="form-input input" autocomplete="off">
                                         </div>
 

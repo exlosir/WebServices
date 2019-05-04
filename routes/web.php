@@ -26,9 +26,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::group(['prefix'=>'profile', 'middleware'=>['auth']], function(){
+    /*Профиль*/
     Route::get('/', 'ProfileController@index')->name('profile');
     Route::post('/save', 'ProfileController@save')->name('profile_save');
     Route::post('/upload-profile-image', 'ProfileController@uploadImage')->name('upload-profile-image');
+    Route::post('/add-role', 'ProfileController@addRole')->name('add-role-user');
+    Route::post('/del-role', 'ProfileController@delRole')->name('del-role-user');
+    Route::get('/get-role', 'ProfileController@getRole')->name('get-role-user');
 
     /*Изменение пароля*/
     Route::post('/change-password', 'ProfileController@changePassword')->name('change-password');
@@ -59,6 +63,11 @@ Route::group(['prefix'=>'user', 'middleware'=>['auth']],function(){
 
 Route::group(['prefix'=>'orders', 'middleware'=>['auth']], function(){
     Route::get('/{category?}', 'OrderController@index')->name('orders');
-    Route::get('/add', 'OrderController@add')->name('add-order');
+    Route::get('/new/add', 'OrderController@add')->name('add-order');
     Route::post('/add/save', 'OrderController@save')->name('save-order');
+    Route::get('/{id}/more','OrderController@indexMore')->name('order-more');
+
+    Route::group(['prefix'=>'order-master'], function() {
+       Route::get('/get-users', 'OrderUserController@getUsers')->name('get-users-order');
+    });
 });

@@ -19,4 +19,13 @@ class UserController extends Controller
         $elements = Portfolio::where('user_id',$id)->paginate(12);
         return view('user.extend-portfolio', compact(['user', 'elements']));
     }
+
+    public function addRole(Request $request, $idRole) {
+        $user = User::find($request->user()->id);
+        if($request->input('method') == 'attach') {
+            $user->attach($idRole);
+        }else {
+            $user->detach($idRole);
+        }
+    }
 }
