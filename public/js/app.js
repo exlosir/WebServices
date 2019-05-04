@@ -1843,13 +1843,21 @@ __webpack_require__.r(__webpack_exports__);
           roleName: 'Исполнитель'
         }
       }).then(function (resp) {
-        return _this.checkbox = resp.data;
+        // console.log('getrole = ' + resp.data);
+        _this.checkbox = resp.data;
+
+        if (_this.checkbox) {
+          _this.checkboxVal = 'Мастер';
+          console.log(_this.checkbox);
+        } else {
+          _this.checkboxVal = 'Не мастер';
+          console.log(_this.checkbox);
+        }
       });
     }
   },
   mounted: function mounted() {
     this.getRole();
-    if (this.checkbox) this.checkboxVal = 'Мастер';else this.checkboxVal = 'Не мастер';
   }
 });
 

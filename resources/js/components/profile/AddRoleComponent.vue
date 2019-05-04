@@ -11,7 +11,7 @@
 </template>
 
 <script>
-    export default {
+     export default {
         data: function(){
             return {
                 checkbox: false,
@@ -37,16 +37,22 @@
             },
             getRole() {
                 axios.get('/profile/get-role',  {params:{roleName: 'Исполнитель'}}).then((resp)=>{
-                    return this.checkbox = resp.data
+                    // console.log('getrole = ' + resp.data);
+                    this.checkbox =  resp.data;
+
+                    if(this.checkbox){
+                        this.checkboxVal = 'Мастер';
+                        console.log(this.checkbox);
+                    }
+                    else{
+                        this.checkboxVal = 'Не мастер';
+                        console.log(this.checkbox);
+                    }
                 })
             }
         },
-        mounted() {
-            this.getRole()
-            if(this.checkbox)
-                this.checkboxVal = 'Мастер';
-            else
-                this.checkboxVal = 'Не мастер';
+         mounted() {
+             this.getRole();
         }
     }
 </script>
