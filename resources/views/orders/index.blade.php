@@ -103,8 +103,15 @@
                                         <a href="{{route('order-more', $order->id)}}" class="btn btn-outline-primary btn-sm">Подробнее</a>
                                     </div>
                                     <div class="col text-right">
+                                        @if(!empty($order->category->parent_id))
                                         <small><strong>{{$order->category->where('id',$order->category->parent_id)->get()->first()->name }}</strong> > {{$order->category->name}}</small>
+                                        @else
+                                            <small><strong>{{$order->category->name}}</strong></small>
+                                        @endif
                                     </div>
+
+
+
                                 </div>
                                 
                             </div>

@@ -77,9 +77,17 @@ Route::group(['prefix'=>'orders', 'middleware'=>['auth']], function(){
     Route::get('/new/add', 'OrderController@add')->name('add-order');
     Route::post('/add/save', 'OrderController@save')->name('save-order');
     Route::get('/{id}/more','OrderController@indexMore')->name('order-more');
+    Route::delete('/{order}/delete','OrderController@destroyOrder')->name('destroy-order');
+    Route::post('/{order}/close', 'OrderController@closeOrder')->name('close-order');
+
+    /*Отызывы*/
+    Route::post('/{order}/feedback/create', 'FeedbackController@create')->name('feedback-create');
+    Route::post('/{order}/feedback/store', 'FeedbackController@store')->name('feedback-store');
+
 
     Route::group(['prefix'=>'order-master'], function() {
         Route::post('{orderid}/add/{userid}', 'OrderUserController@add')->name('add-user-order');
+        Route::post('{order}/accept-master/{master}', 'OrderUserController@acceptMaster')->name('accept-master-order');
         Route::get('/get-users', 'OrderUserController@getUsers')->name('get-users-order');
     });
 });

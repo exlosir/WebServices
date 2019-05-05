@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Rating;
 
 class Order extends Model
 {
@@ -47,7 +49,17 @@ class Order extends Model
         return $this->belongsToMany(User::class, 'order_user', 'order_id', 'user_id');
     }
 
+    public function usersPivot() {
+        return $this->belongsToMany(User::class, 'order_user', 'order_id', 'user_id')->withPivot('id','status_id', 'created_at', 'updated_at')->join('statuses', 'order_user.status_id', '=', 'statuses.id')->select('statuses.name as pivot_statuses_name');
+    }
+
     public function getMastersCount() {
         return $this->users->count();
+    }
+
+    public function isFeedback() { //проверяет, существует ли отзыв к работе
+        $orderUserId = $this->usersPivot()->where('status_id', Status::where('name','Принят')->first()->id)->first()->pivot->id; //нашли мастера, которвый выполнял эту работу
+        $feedback = DB::table('rating_order')->where('order_user',$orderUserId)->get();
+        return $feedback->isEmpty();
     }
 }

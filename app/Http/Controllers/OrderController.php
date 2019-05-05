@@ -66,7 +66,8 @@ class OrderController extends Controller
         $order->description = $request->description;
         $order->customer_id = $request->user()->id;
         $order->price = $request->price;
-        $order->date_end = \Carbon\Carbon::parse($request->date_end)->format('Y-m-d\TH:i');
+//        $order->date_end = \Carbon\Carbon::parse($request->date_end)->format('Y-m-d\TH:i');
+        $order->date_end = $request->date_end;
         $order->status_id = Status::where('name','Открыт')->get()->first()->id;
         $order->category_id = $request->category;
         $order->country_id = $request->country;
@@ -90,5 +91,18 @@ class OrderController extends Controller
         } else {
             return redirect()->back()->with('warning', 'Мы сожалеем, но для вас этот раздел закрыт, т.к вы не подтвердили E-mail!');
         }
+    }
+
+    public function destroyOrder(Order $order) {
+        $order->usersPivot()->detach();
+        $order->delete();
+        return redirect()->route('orders')->with('success','Заказ успешно удален');
+    }
+
+    public function closeOrder(Request $request, Order $order) {
+        $statusOrderClosed = Status::where('name', 'Закрыт')->first()->id;
+        $order->status_id = $statusOrderClosed;
+        $order->save();
+        return redirect()->back()->with('success', 'Заказ успешно закрыт. Не забудьте оставить отзыв мастеру.');
     }
 }

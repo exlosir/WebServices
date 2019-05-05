@@ -330,7 +330,8 @@ body {
 /*Оформление откликнувшихся мастеров*/
 
 .respond-img {
-    height: 100px;
+    width: 100px;
+    height: 90px;
     border-radius: 0.5rem;
 }
 
