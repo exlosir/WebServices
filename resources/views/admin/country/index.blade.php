@@ -13,7 +13,7 @@
         </div>
 
         <div class="row mb-3">
-            <a href="{{url('/admin/country/create')}}" class="btn btn-outline-success btn-block">Добавить новую запись</a>
+            <a href="{{route('country.create')}}" class="btn btn-outline-success btn-block">Добавить новую запись</a>
         </div>
 
         <div class="row justify-content-center">
@@ -37,11 +37,11 @@
                                     <th scope="row">{{$loop->index+1}}</th>
                                     <td>{{$item->name}}</td>
                                     <td>
-                                        <a href="{{url('admin/country/'.$item->id.'/edit')}}" class="mr-2 d-inline btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                        <a href="{{route('country.edit', $item->id)}}" class="mr-2 d-inline btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                         |
-                                        <form action="{{url('admin/country/'.$item->id.'/destroy')}}" class="form d-inline" method="POST">
+                                        <form action="{{route('country.destroy', $item->id)}}" class="form d-inline" method="POST">
                                             @csrf
-                                            {{method_field('delete')}}
+                                            @method('DELETE')
                                             <button type="submit" class="d-inline btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>

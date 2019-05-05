@@ -8,8 +8,9 @@
                     Изменение записи
                 </div>
                 <div class="card-body">
-                    <form action="{{url('admin/country/'.$country->id.'/update')}}" class="form" method="post">
+                    <form action="{{route('country.update', $country->id)}}" class="form" method="post">
                         @csrf
+                        @method('PATCH')
                         <div class="form-group mb-5">
                             {{--<label class="label text-dark">Наименование</label>--}}
                             <input type="text" name="name" class="form-control text-dark" value="{{$country->name}}">

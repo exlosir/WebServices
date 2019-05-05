@@ -6,7 +6,7 @@
         <div class="row justify-content-center">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-light">
-                    <li class="breadcrumb-item"><a href="{{url('admin/country')}}">Страны</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('country.index')}}">Страны</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Добавление записи</li>
                 </ol>
             </nav>
@@ -16,7 +16,7 @@
             <div class="card w-75">
                 <div class="card-header">Создание новой записи в таблице Стран</div>
                 <div class="card-body">
-                    <form action="{{url('admin/country/store')}}" class="form" method="POST">
+                    <form action="{{route('country.store')}}" class="form" method="POST">
                         @csrf
                         <div class="form-group mb-5">
                             <label class="label text-dark">Наименование</label>

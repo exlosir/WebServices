@@ -8,9 +8,9 @@
 
         <div class="row">
             <nav class="nav">
-                <a href="{{url('/admin/country')}}" class="nav-link">Страны</a>
-                <a href="" class="nav-link">Города</a>
-                <a href="" class="nav-link">Категории</a>
+                <a href="{{route('country.index')}}" class="nav-link">Страны</a>
+                <a href="{{route('city.index')}}" class="nav-link">Города</a>
+                <a href="{{route('category.index')}}" class="nav-link">Категории</a>
             </nav>
         </div>
 

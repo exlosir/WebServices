@@ -28,12 +28,11 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'admin']], function() {
     Route::get('/', 'AdminController@index')->name('admin');
 
     /*Маршруты для стран*/
-    Route::get('/country', 'CountryController@index')->name('admin-country');
-    Route::get('/country/create', 'CountryController@create');
-    Route::post('/country/store', 'CountryController@store');
-    Route::get('/country/{id}/edit', 'CountryController@edit');
-    Route::post('/country/{id}/update', 'CountryController@update');
-    Route::delete('/country/{id}/destroy', 'CountryController@destroy');
+    Route::resource('/country', 'CountryController');
+    /*Маршруты для городов*/
+    Route::resource('/city', 'CityController');
+    /*Маршруты для категорий*/
+    Route::resource('/category', 'CategoryController');
 });
 
 
