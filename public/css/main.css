@@ -327,6 +327,17 @@ body {
     height: auto;
 }
 
+/*Оформление откликнувшихся мастеров*/
+
+.respond-img {
+    height: 100px;
+    border-radius: 0.5rem;
+}
+
+.respond-wrapper {
+
+}
+
 
 /*MEDIA для меню*/
 

@@ -24,6 +24,18 @@ Route::get('/logout', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'admin']], function() {
+    Route::get('/', 'AdminController@index')->name('admin');
+
+    /*Маршруты для стран*/
+    Route::get('/country', 'CountryController@index')->name('admin-country');
+    Route::get('/country/create', 'CountryController@create');
+    Route::post('/country/store', 'CountryController@store');
+    Route::get('/country/{id}/edit', 'CountryController@edit');
+    Route::post('/country/{id}/update', 'CountryController@update');
+    Route::delete('/country/{id}/destroy', 'CountryController@destroy');
+});
+
 
 Route::group(['prefix'=>'profile', 'middleware'=>['auth']], function(){
     /*Профиль*/
@@ -68,6 +80,7 @@ Route::group(['prefix'=>'orders', 'middleware'=>['auth']], function(){
     Route::get('/{id}/more','OrderController@indexMore')->name('order-more');
 
     Route::group(['prefix'=>'order-master'], function() {
-       Route::get('/get-users', 'OrderUserController@getUsers')->name('get-users-order');
+        Route::post('{orderid}/add/{userid}', 'OrderUserController@add')->name('add-user-order');
+        Route::get('/get-users', 'OrderUserController@getUsers')->name('get-users-order');
     });
 });

@@ -44,7 +44,7 @@ class Order extends Model
     }
 
     public function users() {
-        return $this->belongsToMany(User::class, 'order_user', 'order_id');
+        return $this->belongsToMany(User::class, 'order_user', 'order_id', 'user_id');
     }
 
     public function getMastersCount() {

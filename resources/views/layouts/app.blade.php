@@ -52,7 +52,8 @@
                 <ul>
                     <li><a href="{{url('/')}}" class="text-center"><i class="icon fas fa-snowman"></i>Главная</a></li>
                     @auth
-                        <li><a href="{{url('/home')}}" class="text-center"><i class="icon fas fa-home"></i>Домашняя страница</a></li>
+                        @can('admin', auth()->user())<li><a href="{{route('admin')}}" class="text-center">Админ панель</a></li>@endcan
+                        <li><a href="{{url('home')}}" class="text-center"><i class="icon fas fa-home"></i>Домашняя страница</a></li>
                         <li><a href="{{route('profile')}}" class="text-center"><i class="icon fas fa-address-card"></i>Профиль</a></li>
                         @can('userEmailConfirmed', auth()->user())<li><a href="{{route('orders')}}" class="text-center"><i class="fas fa-tasks icon"></i>Заказы</a></li>@endcan
                         <li><a href="{{route('portfolio')}}" class="text-center"><i class="icon fas fa-images"></i>Портфолио</a></li>
@@ -82,8 +83,9 @@
 
 
 <!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>--}}
 <script src="{{ asset('js/bootstrap.bundle.js') }}" defer></script>
+{{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>--}}
 <script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{ asset('js/main.js') }}" defer></script>
 

@@ -12,9 +12,9 @@
     <div class="row">
         <div class="col-12 col-md-3">
             <p class="text-center">
-                <a class="btn-link text-monospace" data-toggle="collapse" href="#CategoryCollapse" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Категории</a>
+                <a class="btn-link text-monospace" data-toggle="collapse" href="#categoryCollapse" role="button" aria-expanded="false" aria-controls="CategoryCollapse">Категории</a>
             </p>
-            <div class="collapse" id="CategoryCollapse">
+            <div class="collapse show" id="categoryCollapse">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link lead text-danger" href="{{route('orders')}}"><b>Все категории</b></a>
@@ -81,7 +81,11 @@
                                     </div>
                                     <div class="col-6 col-md-3">
                                         {{--<a href="{{route('user-page', $order->user->id)}}" data-toggle="tooltip" data-placement="top" title="Перейти к профилю пользователя">--}}
+                                        @if(is_null($order->user->image_profile))
+                                            <img src="{{ asset('assets/img-placeholder.png') }}" class="float-right img-thumbnail">
+                                        @else
                                             <img src="{{ asset('profiles/'.$order->user->email.'/'.$order->user->image_profile) }}" class="float-right img-thumbnail">
+                                        @endif
                                         {{--</a>--}}
                                         <a href="{{route('user-page', $order->user->id)}}" class="d-block text-center">
                                             {{  $order->user->first_name .' ' .$order->user->last_name}}

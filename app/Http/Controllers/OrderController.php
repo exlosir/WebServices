@@ -21,10 +21,11 @@ class OrderController extends Controller
                 $orders = Order::orderBy('created_at', 'desc')->paginate(12); // выбираем все заказы, т.к не выбрана категория
             } else {
                 $orders = Order::where('category_id',$category)->paginate(12); //выбираем заказы указанной категории
-                if($orders->isEmpty()) { // если не было найдено заказов по такой категории, ищем все заказы по родительской категории
+                if($orders->isEmpty()) { // если не было найдено заказов по такой категории, ищем все заказы по родительской категори
                     $cat = Category::find($category); // выбираем категорию
-                    if($cat->parent_id == null){ // проверяем, является ли категория родительской
-                        $cat = Category::where('parent_id',$cat->id)->get(12)->pluck('id')->toarray(); // выбираем все дочерние категории
+
+                    if(empty($cat->parent_id)){ // проверяем, является ли категория родительской
+                        $cat = Category::where('parent_id',$cat->id)->get()->pluck('id')->toarray(); // выбираем все дочерние категории
                         $orders = Order::whereIn('category_id',$cat)->paginate(12); // выбираем все заказы, которые относятся к родительской и ее дочерним категориям
                     }
                 }

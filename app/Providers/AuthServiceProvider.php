@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Role;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -31,6 +32,11 @@ class AuthServiceProvider extends ServiceProvider
             }
 
             return false;
+        });
+
+        Gate::define('admin', function($user) {
+            $role = Role::where('name', 'Администратор')->get()->first()->id;
+            return $user->roles->contains($role);
         });
 
     }

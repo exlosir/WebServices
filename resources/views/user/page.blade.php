@@ -27,23 +27,23 @@
                         <tbody>
                             <tr>
                                 <th scope="row" class="w-25">Фамилия</th>
-                                <td>{{$user->first_name}}</td>
+                                <td>{{$user->first_name ? $user->first_name : 'Не указано'}}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Имя</th>
-                                <td>{{$user->last_name}}</td>
+                                <td>{{$user->last_name ? $user->last_name : 'Не указано'}}</td>
                             </tr>
                             <tr>
                                 <th scope="row">E-Mail</th>
-                                <td>{{$user->email}}</td>
+                                <td>{{$user->email ? $user->email : 'Не указано'}}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Страна</th>
-                                <td>{{$user->country->name}}</td>
+                                <td>{{$user->country_id ? $user->country->name : 'Не указано'}}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Город</th>
-                                <td>{{$user->city->name}}</td>
+                                <td>{{$user->city_id ? $user->city->name : 'Не указано'}}</td>
                             </tr>
                         </tbody>
 
@@ -58,7 +58,7 @@
 
                 <h3 class="ml-4"><a href="{{route('extend-user-portfolio', $user->id)}}" class="btn-link">Портфолио</a></h3>
                 <div class="card-columns">
-                    @empty($elemetns)
+                    @if(!$elements->isEmpty())
                         @foreach($elements as $element)
                             <div class="card">
                                 <div id="card{{$element->id}}" class="carousel slide" data-ride="carousel">
@@ -92,14 +92,13 @@
                                 </div>
 
                                 @endforeach
-                                @else
-                                    <div class="container">
-                                        <div class="row justify-content-center">
-                                            <h2>Сожалеем, но у ваc пока не добавлено работ</h2>
-                                        </div>
-                                    </div>
-                                @endempty
-
+                    @else
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <p>У пользователя пока не добавлено работ. Надеемся, в скоро времени они появятся))))</p>
+                            </div>
+                        </div>
+                    @endif
                             </div>
                 </div>
 
