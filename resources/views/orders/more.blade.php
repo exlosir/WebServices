@@ -55,13 +55,16 @@
                             <div class="col text-center">
                                 <form action="{{route('add-user-order', [$order, auth()->user()])}}" method="POST">
                                     @csrf
+                                    {{--{{dd($order->isMaster(auth()->user()))}}--}}
                                     @if(auth()->user()->id != $order->customer_id)
                                         @if(!$order->users->contains(auth()->user()))
                                             <button type="submit" class="btn btn-outline-info btn-small">Предложить свои услуги</button>
                                         @elseif($order->usersPivot()->where('user_id',auth()->user()->id)->first()->pivot->statuses_name == 'Отклонен')
                                             <span class="badge badge-danger">К сожалению, заказчик отклонил ваше предложение.</span>
+                                        @elseif($order->usersPivot()->where('user_id',auth()->user()->id)->first()->pivot->statuses_name == 'Принят')
+                                            <span class="badge badge-success">Заказчик вас выбрал. Свяжитесь с ним для уточнения деталей заказа</span>
                                         @else
-                                            вы уже откликнулись на заказ. ожидайте!
+                                            <span class="badge badge-warning">Ожидайте решения заказчика.</span>
                                         @endif
                                     @endif
                                 </form>

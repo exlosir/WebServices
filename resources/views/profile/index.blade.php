@@ -182,33 +182,33 @@
 
                         </form>
 
-                    <div class="card border-warning mb-3">
+                    <div class="card  mb-3">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12 text-center">
-                                    <h5 class="card-title">Подтверждение E-mail'a</h5>
-                                    <a href="{{route('request-confirmation-email')}}"  class="btn btn-block btn-outline-primary">Подтвердить E-mail</a>
+                                    <div class="card border-warning">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Подтверждение E-mail'a</h5>
+                                            <a href="{{route('request-confirmation-email')}}"  class="btn btn-block btn-outline-primary">Подтвердить E-mail</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 col-sm-12 text-center">
-                                    <h5 class="card-title">Подтверждение Телефона</h5>
-                                    <button class="btn btn-block btn-outline-primary">Подтвердить телефон</button>
+
+                                <div class="col-md-6 col-sm-6 text-center">
+                                    <div class="card border-danger">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center">Удалить аккаунт</h5>
+                                            <form action="{{route('delete-account')}}" class="form" method="post">
+                                                {{method_field('DELETE')}}
+                                                @csrf
+                                                <button type="submit" class="btn btn-block btn-outline-danger text-dark" onclick="return confirm('Удалить аккаунт? Это действие нельзя будет отменить!')">Удалить</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="card border-danger">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Удалить аккаунт</h5>
-                            <form action="{{route('delete-account')}}" class="form" method="post">
-                                {{method_field('DELETE')}}
-                                @csrf
-                                <button type="submit" class="btn btn-block btn-outline-danger text-dark" onclick="return confirm('Удалить аккаунт? Это действие нельзя будет отменить!')">Удалить</button>
-                            </form>
-                        </div>
-                    </div>
-
-
                 </div>
 
             </div>

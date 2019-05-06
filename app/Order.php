@@ -62,4 +62,9 @@ class Order extends Model
         $feedback = DB::table('rating_order')->where('order_user',$orderUserId)->get();
         return $feedback->isEmpty();
     }
+
+    public function isMaster(User $user) {
+        $mst = $this->usersPivot;
+        return $mst;
+    }
 }

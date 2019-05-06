@@ -106,6 +106,24 @@
                 <div class="row">
 
                     <h3 class="ml-3">Отзывы на работы</h3>
+
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <div class="card-columns">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Отзыв к заказу <a href="{{route('order-more', $feedbacks->masters->order->id)}}">{{$feedbacks->masters->order->name}}</a>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Оценка: <span class="badge badge-info">{{$feedbacks->rating}}</span></h5>
+                                        <p class="card-text">{{$feedbacks->description}}</p>
+                                        <p class="catd-text">Отзыв оставлен: {{\Carbon\Carbon::parse($feedbacks->created_at)->format('d.m.Y в H:i:s')}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>

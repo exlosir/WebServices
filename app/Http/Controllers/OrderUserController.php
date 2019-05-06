@@ -39,7 +39,7 @@ class OrderUserController extends Controller
         /*Меняем статус заказа на 'В исполнении' */
         $order->status_id = Status::where('name', 'В исполнении')->first()->id;
         $order->save();
-        return redirect()->route('user-page', $master->id)->with('success', 'Вы выбрали специалиста. Пожалуйста, уведомите его о свего решении! ');
+        return redirect()->route('user-page', $master->id)->with('success', 'Вы выбрали специалиста. Пожалуйста, уведомите его о своем решении! ');
     }
 
     public function getUsers() {

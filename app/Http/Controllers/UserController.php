@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\OrderUser;
 use Illuminate\Http\Request;
 use App\User;
 use App\Portfolio;
+use App\Rating;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function user(Request $request, $id) {
         $user = User::find($id);
         $elements = Portfolio::where('user_id',$id)->take(6)->get();
-        return view('user.page', compact(['user', 'elements']));
+        $orderIds = DB::table('order_user')->where('user_id', $user->id)->get()->pluck('id')->toArray();
+        $feedbacks = Rating::whereIn('order_user', $orderIds)->first();
+        return view('user.page', compact(['user', 'elements', 'feedbacks']));
     }
 
     public function extendUserPortfolio(Request $request, $id) {
