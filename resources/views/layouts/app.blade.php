@@ -52,11 +52,13 @@
                 <ul>
                     <li><a href="{{url('/')}}" class="text-center"><i class="icon fas fa-snowman"></i>Главная</a></li>
                     @auth
-                        @can('admin', auth()->user())<li><a href="{{route('admin')}}" class="text-center">Админ панель</a></li>@endcan
+                        @can('admin', auth()->user())<li><a href="{{route('admin')}}" class="text-center"><i class="icon fas fa-cogs"></i>Админ панель</a></li>@endcan
+
                         <li><a href="{{url('home')}}" class="text-center"><i class="icon fas fa-home"></i>Домашняя страница</a></li>
                         <li><a href="{{route('profile')}}" class="text-center"><i class="icon fas fa-address-card"></i>Профиль</a></li>
                         @can('userEmailConfirmed', auth()->user())<li><a href="{{route('orders')}}" class="text-center"><i class="fas fa-tasks icon"></i>Заказы</a></li>@endcan
                         <li><a href="{{route('portfolio')}}" class="text-center"><i class="icon fas fa-images"></i>Портфолио</a></li>
+                            @can('notRespondFeedback', auth()->user())<li><a href="{{route('feedback-not-responded')}}" class="text-center"><i class="icon fas fa-thumbs-up"></i>Отзывы</a></li>@endcan
                     @endauth
                     @guest
                         <li><a href="{{route('register')}}" class="text-center">Регистрация</a></li>

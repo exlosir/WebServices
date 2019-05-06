@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\OrderUser;
 use App\Status;
 use App\Rating;
 use App\User;
@@ -50,6 +51,19 @@ class FeedbackController extends Controller
         $master->rating = $ratingUser;
         $master->save();
 
-        return redirect()->back()->with('success', 'Спасибо, что оставили отзыв ;)');
+        return redirect()->route('orders')->with('success', 'Спасибо, что оставили отзыв ;)');
+    }
+
+    public function notResponded(Request $request) {
+        $user = auth()->user();
+        $ordersUser = $user->orders1;//получаем все заказы текущего пользователя
+        $orderMasters = OrderUser::whereIn('order_id', $ordersUser->pluck('id'))->get(); // получаем всех откликнувшихся на заказы
+        $orderMasters = $orderMasters->where('status_id',Status::where('name','Принят')->first()->id); // отфильтрованные  значения только принятых к исполнению заказа
+        $allFeedbacks = Rating::whereIn('order_user', $orderMasters->pluck('id'))->get();
+//            dd($orderMasters->pluck('id'), $allFeedbacks->pluck('order_user'));
+        $notFeeds = $orderMasters->pluck('id')->diffKeys($allFeedbacks->pluck('order_user')); // получили количество мастеров, на который текущий пользователь не оставил отзыв
+        $orders = OrderUser::whereIn('id',  $notFeeds)->get();
+//        dd($orders);
+        return view('orders.feedback.notFeeds',['orders'=>$orders]);
     }
 }

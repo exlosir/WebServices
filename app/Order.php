@@ -67,4 +67,8 @@ class Order extends Model
         $mst = $this->usersPivot;
         return $mst;
     }
+
+    public function order_users () {
+        return $this->belongsTo(OrderUser::class, 'id','order_id');
+    }
 }

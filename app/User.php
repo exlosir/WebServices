@@ -95,8 +95,16 @@ class User extends Authenticatable
 
     }
 
+    public function orders1() {
+        return $this->hasMany(Order::class, 'customer_id','id');
+    }
+
     public function orders() {
         return $this->belongsToMany(Order::class, 'order_user', 'user_id', 'order_id')->withPivot('id','status_id', 'created_at', 'updated_at')->join('statuses', 'order_user.status_id', '=', 'statuses.id')->select('statuses.name as pivot_statuses_name');
+    }
+
+    public function ordersWithoutPivot() {
+        return $this->belongsToMany(Order::class, 'order_user', 'user_id', 'order_id');
     }
 
 

@@ -44,7 +44,20 @@
             </div>
         </div>
         <div class="col-12 col-md-9">
-
+            <div class="row mt-2 mb-4">
+                <form action="{{route('orders-search')}}" class="form w-100" method="post">
+                    @csrf
+                    <div class="form-row">
+                            <div class="form-group col-md-9 col-lg-9">
+                                <label for="" class="label text-dark">Введите название или описание заказа</label>
+                                <input type="text" class="form-input input text-dark" name="search">
+                            </div>
+                            <div class="form-group col-md-3 col-lg-3 align-self-end">
+                                <button type="submit" class="btn btn-outline-success btn-block btn-sm">Искать</button>
+                            </div>
+                    </div>
+                </form>
+            </div>
             <div class="row">
                 @foreach($orders as $order)
                     <div class="card w-100 d-flex flex-row mb-4">

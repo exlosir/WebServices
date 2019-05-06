@@ -83,10 +83,7 @@
                                     </form>
                                     @elseif($order->status->name == 'Закрыт')
                                         @if($order->isFeedback())
-                                        <form action="{{route('feedback-create', $order)}}" class="form" method="post">
-                                            @csrf
-                                            <button class="btn btn-outline-success btn-sm">Оставить отзыв</button>
-                                        </form>
+                                            <a href="{{route('feedback-create', $order)}}" class="btn btn-outline-success btn-sm">Оставить отзыв</a>
                                         @endif
                                     @endif
                                 @endif

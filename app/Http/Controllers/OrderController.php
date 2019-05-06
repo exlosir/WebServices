@@ -17,21 +17,53 @@ class OrderController extends Controller
     public function index($category = null) {
 
         if(Gate::allows('userEmailConfirmed', auth()->user())) {
+            $categories = Category::children();
             if(empty($category)) {
                 $orders = Order::orderBy('created_at', 'desc')->paginate(12); // выбираем все заказы, т.к не выбрана категория
+
             } else {
                 $orders = Order::where('category_id',$category)->paginate(12); //выбираем заказы указанной категории
+
                 if($orders->isEmpty()) { // если не было найдено заказов по такой категории, ищем все заказы по родительской категори
                     $cat = Category::find($category); // выбираем категорию
-
-                    if(empty($cat->parent_id)){ // проверяем, является ли категория родительской
+                    if(!empty($cat) && empty($cat->parent_id)){ // проверяем, является ли категория родительской
                         $cat = Category::where('parent_id',$cat->id)->get()->pluck('id')->toarray(); // выбираем все дочерние категории
                         $orders = Order::whereIn('category_id',$cat)->paginate(12); // выбираем все заказы, которые относятся к родительской и ее дочерним категориям
+                    }else {
+                        return view('orders.index', ['orders'=>$orders, 'categories'=>$categories])->withErrors(['Такой категории не существует!', 'Выберите уже имеющуюся категорию.']);
                     }
                 }
 
             }
+
+            return view('orders.index', ['orders'=>$orders, 'categories'=>$categories]);
+        }
+
+        return redirect()->back()->with('warning', 'Мы сожалеем, но для вас этот раздел закрыт, т.к вы не подтвердили E-mail!');
+    }
+
+    public function search(Request $request) {
+        if(Gate::allows('userEmailConfirmed', auth()->user())) {
             $categories = Category::children();
+            $orders = Order::where('name','like','%'.$request->search.'%')
+                                 ->orWhere('description','like','%'.$request->search.'%')
+                                 ->paginate(12); //выбираем все заказы
+//            if(empty($category)) {
+//                $orders = Order::orderBy('created_at', 'desc')->paginate(12); // выбираем все заказы, т.к не выбрана категория
+
+//            } else {
+
+//                if($orders->isEmpty()) { // если не было найдено заказов по такой категории, ищем все заказы по родительской категори
+//                    $cat = Category::find($category); // выбираем категорию
+//                    if(!empty($cat) && empty($cat->parent_id)){ // проверяем, является ли категория родительской
+//                        $cat = Category::where('parent_id',$cat->id)->get()->pluck('id')->toarray(); // выбираем все дочерние категории
+//                        $orders = Order::whereIn('category_id',$cat)->paginate(12); // выбираем все заказы, которые относятся к родительской и ее дочерним категориям
+//                    }else {
+//                        return view('orders.index', ['orders'=>$orders, 'categories'=>$categories])->withErrors(['Такой категории не существует!', 'Выберите уже имеющуюся категорию.']);
+//                    }
+//                }
+
+//            }
 
             return view('orders.index', ['orders'=>$orders, 'categories'=>$categories]);
         }
