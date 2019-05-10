@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Country;
 use App\City;
 use App\Order;
+use App\OrderUser;
 use App\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -48,22 +49,6 @@ class OrderController extends Controller
             $orders = Order::where('name','like','%'.$request->search.'%')
                                  ->orWhere('description','like','%'.$request->search.'%')
                                  ->paginate(12); //выбираем все заказы
-//            if(empty($category)) {
-//                $orders = Order::orderBy('created_at', 'desc')->paginate(12); // выбираем все заказы, т.к не выбрана категория
-
-//            } else {
-
-//                if($orders->isEmpty()) { // если не было найдено заказов по такой категории, ищем все заказы по родительской категори
-//                    $cat = Category::find($category); // выбираем категорию
-//                    if(!empty($cat) && empty($cat->parent_id)){ // проверяем, является ли категория родительской
-//                        $cat = Category::where('parent_id',$cat->id)->get()->pluck('id')->toarray(); // выбираем все дочерние категории
-//                        $orders = Order::whereIn('category_id',$cat)->paginate(12); // выбираем все заказы, которые относятся к родительской и ее дочерним категориям
-//                    }else {
-//                        return view('orders.index', ['orders'=>$orders, 'categories'=>$categories])->withErrors(['Такой категории не существует!', 'Выберите уже имеющуюся категорию.']);
-//                    }
-//                }
-
-//            }
 
             return view('orders.index', ['orders'=>$orders, 'categories'=>$categories]);
         }
@@ -98,8 +83,7 @@ class OrderController extends Controller
         $order->description = $request->description;
         $order->customer_id = $request->user()->id;
         $order->price = $request->price;
-//        $order->date_end = \Carbon\Carbon::parse($request->date_end)->format('Y-m-d\TH:i');
-        $order->date_end = $request->date_end;
+        $order->date_end = \Carbon\Carbon::parse($request->end_date)->format('Y-m-d H:i:s');
         $order->status_id = Status::where('name','Открыт')->get()->first()->id;
         $order->category_id = $request->category;
         $order->country_id = $request->country;
@@ -136,5 +120,47 @@ class OrderController extends Controller
         $order->status_id = $statusOrderClosed;
         $order->save();
         return redirect()->back()->with('success', 'Заказ успешно закрыт. Не забудьте оставить отзыв мастеру.');
+    }
+
+    public function myOrderIndex(Request $request, Order $order) {
+        if(Gate::allows('userEmailConfirmed', auth()->user())) {
+            $categories = Category::children();
+//            if(empty($category)) {
+                $orders = Order::where('customer_id',$request->user()->id)->orderBy('created_at', 'desc')->paginate(12); // выбираем все заказы, т.к не выбрана категория
+
+//            } else {
+//                $orders = Order::where('customer_id', $request->user()->id)->where('category_id',$category)->paginate(12); //выбираем заказы указанной категории
+//
+//                if($orders->isEmpty()) { // если не было найдено заказов по такой категории, ищем все заказы по родительской категори
+//                    $cat = Category::find($category); // выбираем категорию
+//                    if(!empty($cat) && empty($cat->parent_id)){ // проверяем, является ли категория родительской
+//                        $cat = Category::where('parent_id',$cat->id)->get()->pluck('id')->toarray(); // выбираем все дочерние категории
+//                        $orders = Order::where('customer_id', $request->user()->id)->whereIn('category_id',$cat)->paginate(12); // выбираем все заказы, которые относятся к родительской и ее дочерним категориям
+//                    }else {
+//                        return view('orders.index', ['orders'=>$orders, 'categories'=>$categories])->withErrors(['Такой категории не существует!', 'Выберите уже имеющуюся категорию.']);
+//                    }
+//                }
+//
+//            }
+
+            return view('orders.my-orders', ['orders'=>$orders, 'categories'=>$categories]);
+        }
+
+        return redirect()->back()->with('warning', 'Мы сожалеем, но для вас этот раздел закрыт, т.к вы не подтвердили E-mail!');
+    }
+
+    public function myOrdersForExecution(Request $request) {
+        if(Gate::allows('userEmailConfirmed', auth()->user())) {
+            $user = $request->user();
+//            $orders = OrderUser::where('user_id', $user->id)->where('status_id', Status::where('name','Принят')->first()->id)->paginate(12);
+            $orders = OrderUser::where('user_id', $user->id)->where('status_id', Status::where('name','Принят')->first()->id)->paginate(12);
+            $orders = $orders->whereIn('status_id', [Status::where('name','Открыт')->first()->id]);
+            $categories = Category::children();
+//            $orders = Order::where('customer_id',$request->user()->id)->orderBy('created_at', 'desc')->paginate(12);
+
+            return view('orders.my-orders-for-execution', ['orders'=>$orders, 'categories'=>$categories]);
+        }
+
+        return redirect()->back()->with('warning', 'Мы сожалеем, но для вас этот раздел закрыт, т.к вы не подтвердили E-mail!');
     }
 }

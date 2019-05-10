@@ -20,7 +20,7 @@ class PortfolioController extends Controller
     }
 
     public function index() {
-        $elements = Portfolio::all();
+        $elements = Portfolio::where('user_id', auth()->user()->id)->get();
         return view('profile.portfolio', compact('elements'));
     }
 

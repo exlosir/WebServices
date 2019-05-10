@@ -85,7 +85,9 @@
                                             <div class="col-12 col-md-9">
                                                 <h5 class="card-title">{{$order->name}}</h5>
                                                 <div class="">{!!  \Illuminate\Support\Str::words($order->description,5,'...')!!}</div>
+                                                <p class="card-text pt-3">{{$order->country->name .', '. $order->city->name}}</p>
                                             </div>
+
                                             <div class="col-12 col-md-3 pt-1">
                                                 <span class="float-right badge badge-warning ">{{$order->price}} рублей</span>
 

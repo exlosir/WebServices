@@ -12,10 +12,10 @@ class GendersTableSeeder extends Seeder
     public function run()
     {
         DB::table('genders')->insert([
-            'name'=>'Мужчина'
+            'name'=>'Мужской'
         ]);
         DB::table('genders')->insert([
-            'name'=>'Женщина'
+            'name'=>'Женский'
         ]);
     }
 }

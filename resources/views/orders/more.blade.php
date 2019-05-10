@@ -44,8 +44,15 @@
                                     <td>{{$order->description}}</td>
                                 </tr>
                                 <tr>
+                                    {{--{{dd(($order->order_users()->where('user_id', auth()->user()->id)->where('user_id', '!=', $order->customer_id)->where('status_id', \App\Status::where('name', 'Принят')->first()->id)->get())->isEmpty())}}--}}
                                     <th scope="row">Где делать</th>
+                                    @if(!($order->order_users()->where('user_id', auth()->user()->id)->where('user_id', '!=', $order->customer_id)->where('status_id', \App\Status::where('name', 'Принят')->first()->id)->get())->isEmpty())
                                     <td>{{$order->location()}}</td>
+                                    @elseif($order->customer_id == auth()->user()->id)
+                                        <td>{{$order->location()}}</td>
+                                    @else
+                                        <td>{{$order->country->name . ', '. $order->city->name}}</td>
+                                    @endif
                                 </tr>
                             </tbody>
                         </table>
@@ -58,7 +65,9 @@
                                     {{--{{dd($order->isMaster(auth()->user()))}}--}}
                                     @if(auth()->user()->id != $order->customer_id)
                                         @if(!$order->users->contains(auth()->user()))
-                                            <button type="submit" class="btn btn-outline-info btn-small">Предложить свои услуги</button>
+                                            @if(auth()->user()->hasRoleMaster() and $order->status_id != \App\Status::where('name','Закрыт')->first()->id)
+                                                <button type="submit" class="btn btn-outline-info btn-small">Предложить свои услуги</button>
+                                            @endif
                                         @elseif($order->usersPivot()->where('user_id',auth()->user()->id)->first()->pivot->statuses_name == 'Отклонен')
                                             <span class="badge badge-danger">К сожалению, заказчик отклонил ваше предложение.</span>
                                         @elseif($order->usersPivot()->where('user_id',auth()->user()->id)->first()->pivot->statuses_name == 'Принят')

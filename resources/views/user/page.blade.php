@@ -103,6 +103,7 @@
                 </div>
 
                 {{--Блок отзывов--}}
+                @empty(!$feedbacks)
                 <div class="row">
 
                     <h3 class="ml-3">Отзывы на работы</h3>
@@ -110,16 +111,19 @@
                     <div class="card w-100">
                         <div class="card-body">
                             <div class="card-columns">
+                                @foreach($feedbacks as $item)
                                 <div class="card">
                                     <div class="card-header">
-                                        Отзыв к заказу <a href="{{route('order-more', $feedbacks->masters->order->id)}}">{{$feedbacks->masters->order->name}}</a>
+                                        Отзыв к заказу <a href="{{route('order-more', $item->masters->order->id)}}">{{$item->masters->order->name}}</a>
                                     </div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Оценка: <span class="badge badge-info">{{$feedbacks->rating}}</span></h5>
-                                        <p class="card-text">{{$feedbacks->description}}</p>
-                                        <p class="catd-text">Отзыв оставлен: {{\Carbon\Carbon::parse($feedbacks->created_at)->format('d.m.Y в H:i:s')}}</p>
+                                        <h5 class="card-title">Оценка: <span class="badge badge-info">{{$item->rating}}</span></h5>
+                                        <p class="card-text">{{$item->description}}</p>
+                                        <p class="catd-text">Отзыв оставлен: {{\Carbon\Carbon::parse($item->created_at)->format('d.m.Y в H:i:s')}}</p>
                                     </div>
                                 </div>
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
@@ -127,6 +131,7 @@
                 </div>
 
             </div>
+            @endempty
 
         @else
             <h2>Извините, но такого пользователя нет!</h2>

@@ -16,7 +16,7 @@
                         @csrf
                         <div class="form-group mb-4">
                             <label class="label text-dark">Отзыв к заказу <small>(Как можно подробно опишите выполненную работу)</small><sup><i class="fa fa-asterisk text-danger"></i></sup></label>
-                            <input type="text" class="form-input input text-dark" name="description"autocomplete="off">
+                            <input type="text" class="form-input input text-dark" name="description" autocomplete="off">
                         </div>
                         <div class="form-group mb-5">
                             <label class="label text-dark">Оценка к работе <small>(от 1-5, включая дробные числа)</small><sup><i class="fa fa-asterisk text-danger"></i></sup></label>

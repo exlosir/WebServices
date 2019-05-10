@@ -15,7 +15,7 @@ class UserController extends Controller
         $user = User::find($id);
         $elements = Portfolio::where('user_id',$id)->take(6)->get();
         $orderIds = DB::table('order_user')->where('user_id', $user->id)->get()->pluck('id')->toArray();
-        $feedbacks = Rating::whereIn('order_user', $orderIds)->first();
+        $feedbacks = Rating::whereIn('order_user', $orderIds)->get();
         return view('user.page', compact(['user', 'elements', 'feedbacks']));
     }
 

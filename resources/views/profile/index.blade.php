@@ -172,9 +172,6 @@
                                     <input type="text" name="phone_number" class="form-input input text-dark" autocomplete="off" value="{{ $user->phone_number }}">
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-12 align-self-center">
-                                Номер телефона <strong class="{{ !$user->confirmedPhone() ? "text-danger" : "text-success" }}">{{ !$user->confirmedPhone() ? "не подтвержден" : "подтвержден" }}</strong>
-                            </div>
 
                         </div>
 

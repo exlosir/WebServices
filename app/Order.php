@@ -18,15 +18,17 @@ class Order extends Model
     }
 
     public function location() {
-        if(empty($this->street) or empty($this->house)) {
-            return "удаленно";
-        }else {
-            $loc_glob = $this->country()->first()->name . ', '. $this->city()->first()->name. ', ';
+//        if(empty($this->street) or empty($this->house)) {
+//            return "удаленно";
+//        }else {
             $loc =  empty(!$this->house) ? ', д.' .$this->house : '';
             $loc = $loc . (empty(!$this->building) ? ', корп.' .$this->building : '');
             $loc = $loc . (empty(!$this->apartment) ? ', кв.' .$this->apartment : '');
-            return $loc_glob . 'ул. '.$this->street . $loc;
-        }
+            $loc = $loc . (empty(!$this->street) ? ', ул. '. $this->street : '');
+            $loc_glob = $this->country->name . ', '. $this->city->name. '';
+//            return $loc_glob . 'ул. '.$this->street . $loc;
+//        }
+        return $loc_glob . $loc;
     }
 
     public function category() {

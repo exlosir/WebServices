@@ -78,10 +78,6 @@ class User extends Authenticatable
         return $this;
     }
 
-    public function confirmedPhone() {
-        return !! $this->is_confirmed_phone;
-    }
-
     public function deleteAccount() {
         return $this->delete();
     }
@@ -106,6 +102,19 @@ class User extends Authenticatable
     public function ordersWithoutPivot() {
         return $this->belongsToMany(Order::class, 'order_user', 'user_id', 'order_id');
     }
+
+    public function hasRoleMaster() {
+        $roleMasterId = Role::where('name', 'Исполнитель')->first()->id;
+        if($this->roles->contains($roleMasterId))
+            return true;
+        return false;
+    }
+    public function CountMyOrders() {
+//        dd($request);
+        return $this->orders1()->count();
+    }
+
+
 
 
 }

@@ -47,7 +47,7 @@
 
 
             <div class="card-columns">
-                @if(!$elements->isEmpty())
+                @empty($elements->isEmpty())
                     @foreach($elements as $element)
                         <div class="card">
                             <div id="card{{$element->id}}" class="carousel slide" data-ride="carousel">
@@ -89,7 +89,7 @@
                         <h2>Сожалеем, но у ваc пока не добавлено работ</h2>
                     </div>
                     </div>
-                @endif
+                @endempty
 
             </div>
         </div>

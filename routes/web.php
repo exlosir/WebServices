@@ -70,6 +70,10 @@ Route::group(['prefix'=>'profile', 'middleware'=>['auth']], function(){
 Route::group(['prefix'=>'user', 'middleware'=>['auth']],function(){
     Route::get('/{id}', 'UserController@user')->name('user-page');
     Route::get('/{id}/portfolio', 'UserController@extendUserPortfolio')->name('extend-user-portfolio');
+
+    /*Страница со своими заказами*/
+    Route::get('orders/my-orders/', 'OrderController@myOrderIndex')->name('my-orders');
+    Route::get('orders/my-orders/for-execution', 'OrderController@myOrdersForExecution')->name('my-orders-for-execution');
 });
 
 Route::group(['prefix'=>'orders', 'middleware'=>['auth']], function(){
