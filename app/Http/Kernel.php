@@ -40,6 +40,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             'bindings',
+            \App\Http\Middleware\ApiAccess::class,
         ],
     ];
 
@@ -61,7 +62,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkUserConfirmedEmail' => \App\Http\Middleware\CheckUserConfirmedEmail::class,
-        'admin'=> \App\Http\Middleware\CheckAdmin::class,
+        'admin' => \App\Http\Middleware\CheckAdmin::class,
+        // 'apiAccess' => App\Http\Middleware\ApiAccess::class,
     ];
 
     /**
