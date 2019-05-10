@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+Route::get('login', 'api\CountryController@country');
+Route::post('register', 'api\auth\RegisterController@register');
+Route::post('login', 'api\auth\AuthController@login');
+
+Route::group(['middleware' => 'api'], function () {
+    Route::get('test', function () {
+        return response()->json('kek');
+    });
 });
