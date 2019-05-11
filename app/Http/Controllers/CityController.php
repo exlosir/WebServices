@@ -84,10 +84,12 @@ class CityController extends Controller
     {
         $city = City::find($id);
         $validator = Validator::make($request->all(), [
-            'name' => 'required'
+            'name' => 'required',
+            'country_id'=>'required'
         ]);
         if($validator->fails()) return redirect()->back()->withErrors($validator->errors());
         $city->name = $request->name;
+        $city->country_id = $request->country_id;
         $city->save();
         return redirect()->route('city.index')->with('success', 'Запись успешно изменена');
     }
