@@ -10,3 +10,19 @@
 [Sat May 04 19:37:21.980115 2019] [php7:warn] [pid 995] [client 192.168.1.118:43925] PHP Warning:  POST Content-Length of 15074057 bytes exceeds the limit of 8388608 bytes in Unknown on line 0, referer: http://192.168.1.50/profile/portfolio
 [Sat May 04 19:37:23.902302 2019] [php7:warn] [pid 2573] [client 192.168.1.118:43929] PHP Warning:  POST Content-Length of 15074057 bytes exceeds the limit of 8388608 bytes in Unknown on line 0, referer: http://192.168.1.50/profile/portfolio
 [Sat May 04 19:37:24.922765 2019] [php7:warn] [pid 2372] [client 192.168.1.118:43933] PHP Warning:  POST Content-Length of 15074057 bytes exceeds the limit of 8388608 bytes in Unknown on line 0, referer: http://192.168.1.50/profile/portfolio
+[Sat May 11 02:03:28.690454 2019] [authz_core:error] [pid 5013] [client 127.0.0.1:51102] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/
+[Sat May 11 02:03:28.822875 2019] [authz_core:error] [pid 5013] [client 127.0.0.1:51102] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/favicon.ico, referer: http://easywork.loc/
+[Sat May 11 02:04:59.113278 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/
+[Sat May 11 02:04:59.194566 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/favicon.ico, referer: http://easywork.loc/
+[Sat May 11 02:04:59.574722 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/
+[Sat May 11 02:04:59.632360 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/favicon.ico, referer: http://easywork.loc/
+[Sat May 11 02:04:59.729918 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/
+[Sat May 11 02:04:59.769021 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/favicon.ico, referer: http://easywork.loc/
+[Sat May 11 02:04:59.893510 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/
+[Sat May 11 02:04:59.940591 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/favicon.ico, referer: http://easywork.loc/
+[Sat May 11 02:05:00.022581 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/
+[Sat May 11 02:05:00.056776 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/favicon.ico, referer: http://easywork.loc/
+[Sat May 11 02:05:00.169522 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/
+[Sat May 11 02:05:00.247003 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/favicon.ico, referer: http://easywork.loc/
+[Sat May 11 02:05:00.311456 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/
+[Sat May 11 02:05:00.354185 2019] [authz_core:error] [pid 5015] [client 127.0.0.1:51464] AH01630: client denied by server configuration: /home/timur/www/diplom.loc/public/favicon.ico, referer: http://easywork.loc/

@@ -38,13 +38,14 @@ class AuthServiceProvider extends ServiceProvider
             return false;
         });
 
-        Gate::define('admin', function($user) {
-            $role = Role::where('name', 'Администратор')->get()->first()->id;
+        Gate::define('admin', function(User $user) {
+            $role = Role::where('name', 'Администратор')->get()->first();
             return $user->roles->contains($role);
         });
 
         Gate::define('notRespondFeedback', function(User $user){
             $ordersUser = $user->orders1;//получаем все заказы текущего пользователя
+            if($ordersUser->isEmpty()) return false;
             $orderMasters = OrderUser::whereIn('order_id', $ordersUser->pluck('id'))->get(); // получаем всех откликнувшихся на заказы
             $orderMasters = $orderMasters->where('status_id',Status::where('name','Принят')->first()->id); // отфильтрованные  значения только принятых к исполнению заказа
             $allFeedbacks = Rating::whereIn('order_user', $orderMasters->pluck('id'))->get();

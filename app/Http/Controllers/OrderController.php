@@ -10,6 +10,7 @@ use App\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use App\Category;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller

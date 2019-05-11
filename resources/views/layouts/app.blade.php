@@ -24,9 +24,9 @@
     <nav class="navbar navbar-fixed-top nav-top">
         <div class="container">
             <div class="col-6">
-                <div class="navbar-brand"><a href="/" class="text-decoration-none text-uppercase text-danger">Brand</a></div>
+                <a href="/" class=""><div class="navbar-brand logo-top-nav"></div></a>
             </div>
-            <div class="col-6 ">
+            <div class="col-6">
                 @guest
                     <ul class="nav navbar float-right">
                         <li class="nav-item"><a href="{{route('register')}}" class="link">Регистрация</a></li>
@@ -46,7 +46,7 @@
     <div class="nav-left-wrapper">
         <div class="nav-left">
             <div class="nav-left-brand d-flex flex-column justify-content-center align-items-center">
-                <div class="text-center">BRAND</div>
+                <div class="logo-left-nav"></div>
             </div>
             <div class="nav-left-menu">
                 <ul>

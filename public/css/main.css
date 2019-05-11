@@ -4,6 +4,23 @@ body {
     height: 100%;
 }
 
+.logo-left-nav {
+    background: url("../assets/logo.png");
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.logo-top-nav {
+    background: url("../assets/logo-cropped.png");
+    display: block;
+    width: 80px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
 
 .icon {
     padding-right: 15px;

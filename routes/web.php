@@ -45,6 +45,10 @@ Route::group(['prefix'=>'profile', 'middleware'=>['auth']], function(){
     Route::post('/del-role', 'ProfileController@delRole')->name('del-role-user');
     Route::get('/get-role', 'ProfileController@getRole')->name('get-role-user');
 
+    Route::get('/get-countries', 'ProfileController@getCountries');
+    Route::get('/get-cities/{id}', 'ProfileController@getCities');
+    Route::get('/get-user-country-city', 'ProfileController@getCountryCity');
+
     /*Изменение пароля*/
     Route::post('/change-password', 'ProfileController@changePassword')->name('change-password');
 

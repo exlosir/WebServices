@@ -22,6 +22,8 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').    default);
 Vue.component('add-role-component', require('./components/profile/AddRoleComponent.vue').default);
+Vue.component('country-city', require('./components/profile/CountryCity.vue').default);
+Vue.component('country-city-orders', require('./components/profile/CountryCityOrders.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

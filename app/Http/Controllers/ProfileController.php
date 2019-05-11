@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -19,10 +20,15 @@ class ProfileController extends Controller
     public function index(Request $request) {
         $user = $request->user();
         $genders = Gender::all();
-        $cities = City::all();
-        $countries = Country::all();
-        return view('profile.index')->with(['user'=>$user,'genders'=>$genders, 'countries'=>$countries, 'cities'=>$cities]);
+//        $cities = City::all();
+//        $countries = Country::all();
+        return view('profile.index')->with(['user'=>$user,'genders'=>$genders/*, 'countries'=>$countries, 'cities'=>$cities*/]);
     }
+
+//    public function getCities(Country $country) {
+//        $cities = City::where('country_id',$country->id)->get();
+//        return $cities;
+//    }
 
     public function save(Request $request) {
         $user = $request->user();
@@ -128,6 +134,20 @@ class ProfileController extends Controller
         $role = Role::where('name', $request->roleName)->get();
 
         return json_encode($user->roles()->get()->contains($role->first()->id));
+    }
+
+    public function getCountries() {
+        return Response::json($categories = Country::all());
+    }
+
+    public function getCities($id) {
+        $cities = City::where('country_id', $id)->get();
+        return Response::json($cities);
+    }
+
+    public function getCountryCity() {
+        $user = auth()->user();
+        return Response::json(['country'=>$user->country->name, 'city'=>$user->city->name]);
     }
 
 

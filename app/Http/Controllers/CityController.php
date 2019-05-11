@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Country;
 use Illuminate\Http\Request;
 use App\City;
 use Illuminate\Support\Facades\Validator;
@@ -26,7 +27,8 @@ class CityController extends Controller
      */
     public function create()
     {
-        return view('admin.city.create');
+        $countries = Country::all();
+        return view('admin.city.create', compact('countries'));
     }
 
     /**
@@ -38,7 +40,8 @@ class CityController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'=>'required'
+            'name'=>'required',
+            'country_id' => 'required'
         ]);
         if($validator->fails()) return redirect()->back()->withErrors($validator->errors());
         City::create($request->all());
@@ -66,7 +69,8 @@ class CityController extends Controller
     public function edit($id)
     {
         $city = City::find($id);
-        return view('admin.city.edit', ['city'=>$city]);
+        $countries = Country::all();
+        return view('admin.city.edit', compact('city', 'countries'));
     }
 
     /**

@@ -22,6 +22,15 @@
                             <label class="label text-dark">Наименование</label>
                             <input type="text" name="name" class="form-input input text-dark">
                         </div>
+                        <div class="form-group mb-5">
+                            <label class="label text-dark">Страна</label>
+                            <select name="country_id" class="form-input select text-dark">
+                                <option value=""></option>
+                                @foreach($countries as $item)
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
 
                         <button type="submit" class="btn btn-outline-success btn-block">Добавить</button>
                     </form>

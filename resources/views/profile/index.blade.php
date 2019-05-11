@@ -83,44 +83,9 @@
                                     <input type="text" name="patronymic" class="form-input input text-dark" autocomplete="off" value="{{ $user->patronymic }}">
                                 </div>
 
-                                <div class="form-group mb-5">
-                                    <label for="first_name" class="label text-dark {{ $user->country ? 'label-active' : '' }}">Страна</label>
-                                    <select name="country" class="form-control select text-dark">
-                                        <option value=""></option>
-                                        @foreach($countries as $item)
-                                            @if(!is_null($user->country))
-                                                @if($user->country->id == $item->id)
-                                                    <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
-                                                @else
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endif
-                                            @else
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <country-city></country-city>
 
-                                <div class="form-group mb-5">
-                                    <label for="first_name" class="label text-dark {{ $user->city ? 'label-active' : '' }}">Город</label>
-                                    <select name="city" class="form-control select text-dark">
-                                        <option value=""></option>
-                                        @foreach($cities as $item)
-                                            @if(!is_null($user->city))
-                                                @if($user->city->id == $item->id)
-                                                    <option value="{{ $item->id }}" selected>{{ $item->name }}</option>
-                                                @else
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endif
-                                            @else
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-                                </div>
                             </div>
-
-
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group mb-5">
                                     <label for="first_name" class="label text-dark {{ $user->last_name ? 'label-active' : '' }}">Имя</label>

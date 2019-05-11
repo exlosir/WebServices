@@ -11,11 +11,16 @@
 /*Подпись к инпутам*/
 $(document).ready(function(){
 
+    $(".form").find('.form-input').each(function(){
+        _this = $(this);
+        _label = _this.prev();
+        if(_this.val() !== '')
+            _label.addClass('label-active');
+    });
 
 $('.form').find('input, textarea, select').on('keyup blur focus change', function (e) {
     var _this = $(this),
         _label = _this.prev();
-
 
 
     if(e.type === 'keyup') {
@@ -66,6 +71,12 @@ $('.form').find('input, textarea, select').on('keyup blur focus change', functio
             _label.removeClass('label-active');
         }
     }
+
+    // else if (e.type === 'load') {
+    //     if(_this.val() === '') {
+    //         _label.addClass('label-active');
+    //     }
+    // }
 
 
 

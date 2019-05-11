@@ -41,30 +41,7 @@
                 <input type="text" class="form-input input text-dark" name="description" value="{{old('description')}}">
             </div>
 
-            <div class="row">
-                <div class="col-sm col-lg">
-                    <div class="form-group mb-4">
-                        <label for="" class="label text-dark">Страна <sup><i class="fa fa-asterisk text-danger"></i></sup></label>
-                        <select class="form-control select text-dark" name="country" value="{{old('country')}}">
-                            <option value=""></option>
-                            @foreach($countries as $item)
-                                <option value="{{$item->id}}">{{$item->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm col-lg">
-                    <div class="form-group mb-4">
-                        <label for="" class="label text-dark">Город <sup><i class="fa fa-asterisk text-danger"></i></sup></label>
-                        <select class="form-control select text-dark" name="city" value="{{old('city')}}">
-                            <option value=""></option>
-                            @foreach($cities as $item)
-                                <option value="{{$item->id}}">{{$item->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
+            <country-city-orders></country-city-orders>
 
             <div class="row">
                 <div class="col-sm-12 col-lg">

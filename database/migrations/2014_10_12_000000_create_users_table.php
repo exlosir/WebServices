@@ -30,8 +30,7 @@ class CreateUsersTable extends Migration
             $table->float('rating')->nullable();
             $table->boolean('is_confirmed_email')->default(false);
             $table->string('confirmed_email_token')->nullable();
-            $table->boolean('is_confirmed_phone')->default(false);
-            $table->string('confirmed_phone_code')->nullable();
+            $table->string('api_token')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -27,7 +27,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Наименование</th>
+                                <th scope="col">Город</th>
+                                <th scope="col">Страна</th>
                                 <th scope="col">Действие</th>
                             </tr>
                         </thead>
@@ -36,6 +37,7 @@
                                 <tr>
                                     <th scope="row">{{$loop->index+1}}</th>
                                     <td>{{$item->name}}</td>
+                                    <td>@if(!$item->country == null){{$item->country->name}}</td> @endif
                                     <td>
                                         <a href="{{route('city.edit', $item->id)}}" class="mr-2 d-inline btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                                         |
