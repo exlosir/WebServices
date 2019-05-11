@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\City;
 use App\Country;
 use App\Gender;
+use App\Order;
+use App\OrderUser;
 use App\Role;
+use App\Status;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,9 +23,9 @@ class ProfileController extends Controller
     public function index(Request $request) {
         $user = $request->user();
         $genders = Gender::all();
-//        $cities = City::all();
-//        $countries = Country::all();
-        return view('profile.index')->with(['user'=>$user,'genders'=>$genders/*, 'countries'=>$countries, 'cities'=>$cities*/]);
+        $countOrders = Order::where('customer_id', $user->id)->get()->count();
+        $countDoneOrders = OrderUser::where('user_id', $user->id)->where('status_id',Status::where('name', 'Принят')->first()->id)->get()->count();
+        return view('profile.index')->with(['user'=>$user,'genders'=>$genders, 'countOrders'=>$countOrders, 'countDoneOrders'=>$countDoneOrders]);
     }
 
 //    public function getCities(Country $country) {

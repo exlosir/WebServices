@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
 use App\OrderUser;
+use App\Status;
 use Illuminate\Http\Request;
 use App\User;
 use App\Portfolio;
@@ -16,7 +18,9 @@ class UserController extends Controller
         $elements = Portfolio::where('user_id',$id)->take(6)->get();
         $orderIds = DB::table('order_user')->where('user_id', $user->id)->get()->pluck('id')->toArray();
         $feedbacks = Rating::whereIn('order_user', $orderIds)->get();
-        return view('user.page', compact(['user', 'elements', 'feedbacks']));
+        $countOrders = Order::where('customer_id', $user->id)->get()->count();
+        $countDoneOrders = OrderUser::where('user_id', $user->id)->where('status_id',Status::where('name', 'Принят')->first()->id)->get()->count();
+        return view('user.page', compact(['user', 'elements', 'feedbacks', 'countOrders', 'countDoneOrders']));
     }
 
     public function extendUserPortfolio(Request $request, $id) {

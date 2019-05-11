@@ -23,21 +23,21 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
-                                Зарегистрированных пользователей - 0
+                                Зарегистрированных пользователей - {{$countUsers}}
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
-                                Оставлено заказов - 0
+                                Оставлено заказов - {{$countOrders}}
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
-                                Исполнено заказов - 0
+                                Исполнено заказов - {{$countDoneOrders}}
                             </div>
                         </div>
                     </div>
