@@ -24,3 +24,11 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+
+$factory->defineAs(User::class, 'admin', function() {
+    return [
+        'login' => 'admin',
+        'email' => 'info@randomworkdomen.tk',
+        'password' => bcrypt('qwerty123456'), // password
+    ];
+});
