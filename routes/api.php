@@ -25,4 +25,13 @@ Route::group(['middleware' => 'api'], function () {
     Route::get('test', function () {
         return response()->json('kek');
     });
+
+    /*Заказы*/
+    Route::group(['prefix'=>'orders'], function() {
+        Route::get('/', 'api\OrdersController@allOrders');
+        Route::post('/search', 'api\OrdersController@searchOrders');
+        Route::get('/add', 'api\OrdersController@addOrder');
+        Route::post('/add/new/store', 'api\OrdersController@storeOrder');
+    });
+
 });
