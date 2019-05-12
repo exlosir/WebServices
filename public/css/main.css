@@ -379,6 +379,10 @@ body {
     .nav-left-wrapper-active {
         left: 0px;
     }
+    .logo-top-nav {
+        display: none;
+        background: none;
+    }
 }
 
 

@@ -8,7 +8,7 @@
             <div class="container">
             <div class="col-3 col-12">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-12 col-md-3 col-lg-3">
                         @if(is_null($user->image_profile))
                             <img src="{{ asset('assets/img-placeholder.png') }}" alt="" class="img-profile mb-3 btn-br">
                         @else
@@ -19,7 +19,7 @@
                             <span class="d-block"> Заказов: <i class="text-danger">{{$countOrders}}</i></span>
                             <span class="d-block"> <a href="{{route('user-page', $user->id)}}" class="text-muted">Посмотреть профиль со стороны</a></span>
                     </div>
-                    <div class="col-9">
+                    <div class="col-12 col-md-9 col-lg-9">
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-item-tabs nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-edit-photo" role="tab" aria-controls="nav-edit-photo" aria-selected="true">Изменение фотографии</a>
@@ -144,11 +144,11 @@
 
                         </form>
 
-                    <div class="card  mb-3">
+                    <div class="card mb-3">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 col-sm-12 text-center">
-                                    <div class="card border-warning">
+                                    <div class="card border-warning mb-3">
                                         <div class="card-body">
                                             <h5 class="card-title">Подтверждение E-mail'a</h5>
                                             <a href="{{route('request-confirmation-email')}}"  class="btn btn-block btn-outline-primary">Подтвердить E-mail</a>
@@ -156,7 +156,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 col-sm-6 text-center">
+                                <div class="col-md-6 col-sm-12 text-center">
                                     <div class="card border-danger">
                                         <div class="card-body">
                                             <h5 class="card-title text-center">Удалить аккаунт</h5>

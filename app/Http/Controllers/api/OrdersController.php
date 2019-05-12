@@ -76,4 +76,14 @@ class OrdersController extends Controller
 
         return Response::json('Заказ успешно добавлен');
     }
+
+    public function destroyOrder(Request $request, $id) {
+        $order = Order::find($id);
+//        dd($order->user);
+        if($order->user->id == $request->user_id){
+            $order->delete();
+            return Response::json(['success'=>'Заказ успешно удален!']);
+        }
+        return Response::json(['error'=>'Произошла ошибка во время удаления заказа!']);
+    }
 }

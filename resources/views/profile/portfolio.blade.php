@@ -37,17 +37,14 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-outline-success btn-block">Добавить</button>
-
-
-
                     </form>
                 </div>
             </div>
         </div>
 
 
-            <div class="card-columns">
-                @empty($elements->isEmpty())
+            @empty($elements->isEmpty())
+                <div class="card-columns">
                     @foreach($elements as $element)
                         <div class="card">
                             <div id="card{{$element->id}}" class="carousel slide" data-ride="carousel">
@@ -83,14 +80,14 @@
                         </div>
 
                     @endforeach
-                @else
-                    <div class="container">
-                    <div class="row justify-content-center">
-                        <h2>Сожалеем, но у ваc пока не добавлено работ</h2>
-                    </div>
-                    </div>
-                @endempty
-
             </div>
         </div>
+        @else
+            <div class="container">
+                <div class="row justify-content-center">
+                    {{--<h2>Сожалеем, но у ваc пока не добавлено работ</h2>--}}
+                    <h3 class="text-muted">Добавьте элемент портфолио, нажав на "Портфолио" и они отобразятся здесь.</h3>
+                </div>
+            </div>
+    @endempty
 @endsection

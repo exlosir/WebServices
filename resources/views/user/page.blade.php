@@ -11,7 +11,7 @@
 
             {{--Блок информации о пользователе--}}
             <div class="row mb-5">
-                <div class="col-3">
+                <div class="col-12 col-md-3 col-lg-3">
                     @empty($user->image_profile)
                         <img src="{{ asset('assets/img-placeholder.png') }}" alt="" class="mb-3 btn-br img-thumbnail">
                     @else
@@ -22,7 +22,7 @@
                     <span class="d-block"> Выполнено заказов: <i class="text-danger">{{$countDoneOrders}}</i></span>
                     <span class="d-block"> Заказов: <i class="text-danger">{{$countOrders}}</i></span>
                 </div>
-                <div class="col-9">
+                <div class="col-12 col-md-9 col-lg-9">
                     <table class="table table-bordered">
                         <tbody>
                             <tr>

@@ -23,10 +23,10 @@
 <div id="app">
     <nav class="navbar navbar-fixed-top nav-top">
         <div class="container">
-            <div class="col-6">
+            <div class="col-0 col-md-6 col-lg-6">
                 <a href="/" class=""><div class="navbar-brand logo-top-nav"></div></a>
             </div>
-            <div class="col-6">
+            <div class="col-12 col-md-6 col-lg-6">
                 @guest
                     <ul class="nav navbar float-right">
                         <li class="nav-item"><a href="{{route('register')}}" class="link">Регистрация</a></li>
@@ -54,7 +54,7 @@
                     @auth
                         @can('admin', auth()->user())<li><a href="{{route('admin')}}" class="text-center"><i class="icon fas fa-cogs"></i>Админ панель</a></li>@endcan
 
-                        <li><a href="{{url('home')}}" class="text-center"><i class="icon fas fa-home"></i>Домашняя страница</a></li>
+                        {{--<li><a href="{{url('home')}}" class="text-center"><i class="icon fas fa-home"></i>Домашняя страница</a></li>--}}
                         <li><a href="{{route('profile')}}" class="text-center"><i class="icon fas fa-address-card"></i>Профиль</a></li>
                         @can('userEmailConfirmed', auth()->user())<li><a href="{{route('orders')}}" class="text-center"><i class="fas fa-tasks icon"></i>Заказы</a></li>@endcan
                             @if(auth()->user()->CountMyOrders() > 0)<li><a href="{{route('my-orders')}}" class="text-center"><i class="icon fa fa-file-text-o"></i>Мои заказы</a></li> @endif

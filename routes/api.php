@@ -32,6 +32,7 @@ Route::group(['middleware' => 'api'], function () {
         Route::post('/search', 'api\OrdersController@searchOrders');
         Route::get('/add', 'api\OrdersController@addOrder');
         Route::post('/add/new/store', 'api\OrdersController@storeOrder');
+        Route::delete('{id}/destroy', 'api\OrdersController@destroyOrder');
     });
 
 });

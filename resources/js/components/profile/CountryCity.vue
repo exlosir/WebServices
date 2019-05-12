@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="form-group mb-5">
-            <label for="country" class="label text-dark">Страна {{'- '+this.countryCity.country}}</label>
+            <label for="country" class="label text-dark">Страна {{this.countryCity.country !== null ? '- '+this.countryCity.country: ''}}</label>
             <select v-model="country" name="country" id="country" class="form-control select text-dark" @change="loadCities()">
                 <option value=""></option>
                 <option v-for="country in countries" :value="country.id">{{country.name}}</option>
             </select>
         </div>
         <div class="form-group mb-5">
-            <label for="city" class="label text-dark">Город {{'- '+this.countryCity.city}}</label>
+            <label for="city" class="label text-dark">Город {{this.countryCity.city !== null ? '- '+this.countryCity.city: ''}}</label>
             <select v-model="city" name="city" id="city" class="form-control select text-dark">
                 <option value=""></option>
                 <option v-for="city in cities" :value="city.id">{{city.name}}</option>
@@ -31,6 +31,7 @@
          mounted() {
              this.loadCountries();
              this.loadCountryCity();
+             // console.log(this.countryCity);
          },
         methods: {
             loadCountries() {

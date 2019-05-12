@@ -89,7 +89,7 @@
                                             </div>
 
                                             <div class="col-12 col-md-3 pt-1">
-                                                <span class="float-right badge badge-warning ">{{$order->price}} рублей</span>
+                                                <span class="float-left badge badge-warning ">{{$order->price}} рублей</span>
 
                                             </div>
                                         </div>

@@ -150,7 +150,7 @@ class ProfileController extends Controller
 
     public function getCountryCity() {
         $user = auth()->user();
-        return Response::json(['country'=>$user->country->name, 'city'=>$user->city->name]);
+        return Response::json(['country'=>$user->country ? $user->country->name : null, 'city'=>$user->city ? $user->city->name : null]);
     }
 
 

@@ -1903,7 +1903,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.loadCountries();
-    this.loadCountryCity();
+    this.loadCountryCity(); // console.log(this.countryCity);
   },
   methods: {
     loadCountries: function loadCountries() {
@@ -37463,7 +37463,16 @@ var render = function() {
       _c(
         "label",
         { staticClass: "label text-dark", attrs: { for: "country" } },
-        [_vm._v("Страна " + _vm._s("- " + this.countryCity.country))]
+        [
+          _vm._v(
+            "Страна " +
+              _vm._s(
+                this.countryCity.country !== null
+                  ? "- " + this.countryCity.country
+                  : ""
+              )
+          )
+        ]
       ),
       _vm._v(" "),
       _c(
@@ -37515,7 +37524,12 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "form-group mb-5" }, [
       _c("label", { staticClass: "label text-dark", attrs: { for: "city" } }, [
-        _vm._v("Город " + _vm._s("- " + this.countryCity.city))
+        _vm._v(
+          "Город " +
+            _vm._s(
+              this.countryCity.city !== null ? "- " + this.countryCity.city : ""
+            )
+        )
       ]),
       _vm._v(" "),
       _c(
