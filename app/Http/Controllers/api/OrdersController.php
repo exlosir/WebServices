@@ -9,13 +9,23 @@ use App\Order;
 use App\Status;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 class OrdersController extends Controller
 {
     public function allOrders() {
-        $orders = Order::with('country','city','status','category')->get();
+        $orders = Order::with('country','city','status','category', 'user')->get();
+//        $orders = new Collection();
+//        foreach(Order::all() as $order) {
+//            $order->status_id = $order->status()->first()->name;
+//            $order->country_id = $order->country()->first()->name;
+//            $order->city_id = $order->city()->first()->name;
+//            $order->category_id = $order->category()->first()->name;
+//            $orders->push($order);
+//        }
+
         return Response::json($orders)->setStatusCode(200);
     }
 
