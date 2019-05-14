@@ -103,7 +103,11 @@
                                         @endif
                                         {{--</a>--}}
                                         <a href="{{route('user-page', $order->user->id)}}" class="d-block text-center">
-                                            {{  $order->user->first_name .' ' .$order->user->last_name}}
+                                            @if($order->user->first_name != null or $order->user->last_name != null)
+                                                {{$order->user->first_name . ' '. $order->user->last_name}}
+                                            @else
+                                                Неизвестный пользователь
+                                            @endif
                                         </a>
                                     </div>
                                 </div>
