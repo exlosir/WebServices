@@ -80,8 +80,6 @@
                                             @endif
                                         </div>
 
-
-
                                     </div>
 
                                 </div>
@@ -91,7 +89,7 @@
                     @endforeach
                 {{$orders->links()}}
                 @else
-                    <h4 class="text-center">Вас пока никто не выбрал для испонения заказа</h4>
+                    <h4 class="text-center">Вас пока никто не выбрал для исполнения заказа</h4>
                 @endif
 
             </div>

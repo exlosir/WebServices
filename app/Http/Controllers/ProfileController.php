@@ -24,7 +24,9 @@ class ProfileController extends Controller
         $user = $request->user();
         $genders = Gender::all();
         $countOrders = Order::where('customer_id', $user->id)->get()->count();
-        $countDoneOrders = OrderUser::where('user_id', $user->id)->where('status_id',Status::where('name', 'Принят')->first()->id)->get()->count();
+        $countDoneOrders = OrderUser::where('user_id', $user->id)->where('status_id',Status::where('name', 'Принят')->first()->id)->whereHas('order', function($q){
+            $q->where('status_id', Status::where('name', 'Закрыт')->first()->id);
+        })->get()->count();
         return view('profile.index')->with(['user'=>$user,'genders'=>$genders, 'countOrders'=>$countOrders, 'countDoneOrders'=>$countDoneOrders]);
     }
 

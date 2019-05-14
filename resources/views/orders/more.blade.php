@@ -65,7 +65,7 @@
                                     {{--{{dd($order->isMaster(auth()->user()))}}--}}
                                     @if(auth()->user()->id != $order->customer_id)
                                         @if(!$order->users->contains(auth()->user()))
-                                            @if(auth()->user()->hasRoleMaster() and $order->status_id != \App\Status::where('name','Закрыт')->first()->id)
+                                            @if(auth()->user()->hasRoleMaster() and $order->status->name != 'Закрыт' and $order->status->name != 'В исполнении')
                                                 <button type="submit" class="btn btn-outline-info btn-small">Предложить свои услуги</button>
                                             @endif
                                         @elseif($order->usersPivot()->where('user_id',auth()->user()->id)->first()->pivot->statuses_name == 'Отклонен')
@@ -96,6 +96,7 @@
                                         @endif
                                     @endif
                                 @endif
+
                             </div>
                             <div class="col text-center">
                                 Откликнулось на заказ<span class="badge badge-warning ml-2 mr-2">{{$order->getMastersCount()}}</span> @if(auth()->user()->id != $order->customer_id and !$order->users->contains(auth()->user())) Вы будете <span class="badge badge-dark">{{$order->getMastersCount()+1}} @endif</span>

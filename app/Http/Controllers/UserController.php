@@ -19,7 +19,9 @@ class UserController extends Controller
         $orderIds = DB::table('order_user')->where('user_id', $user->id)->get()->pluck('id')->toArray();
         $feedbacks = Rating::whereIn('order_user', $orderIds)->get();
         $countOrders = Order::where('customer_id', $user->id)->get()->count();
-        $countDoneOrders = OrderUser::where('user_id', $user->id)->where('status_id',Status::where('name', 'Принят')->first()->id)->get()->count();
+        $countDoneOrders = OrderUser::where('user_id', $user->id)->where('status_id',Status::where('name', 'Принят')->first()->id)->whereHas('order', function($q){
+            $q->where('status_id', Status::where('name', 'Закрыт')->first()->id);
+        })->get()->count();
         return view('user.page', compact(['user', 'elements', 'feedbacks', 'countOrders', 'countDoneOrders']));
     }
 
