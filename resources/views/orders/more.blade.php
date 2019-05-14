@@ -29,7 +29,13 @@
                             <tbody>
                                 <tr>
                                     <th scope="row" class="w-25">Заказчик</th>
-                                    <td><a href="{{route('user-page', $order->user->id)}}">{{$order->user->last_name}} {{$order->user->first_name}}</a></td>
+                                    <td><a href="{{route('user-page', $order->user->id)}}">
+                                            @if($order->user->last_name != null or $order->user->first_name != null)
+                                                {{$order->user->last_name}} {{$order->user->first_name}}
+                                            @else
+                                                Неизвестный пользователь
+                                            @endif
+                                        </a></td>
                                 </tr
                                 <tr>
                                     <th scope="row" class="w-25">Стоимость</th>
