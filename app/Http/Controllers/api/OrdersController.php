@@ -79,11 +79,15 @@ class OrdersController extends Controller
 
     public function destroyOrder(Request $request, $id) {
         $order = Order::find($id);
-//        dd($order->user);
         if($order->user->id == $request->user_id){
             $order->delete();
             return Response::json(['success'=>'Заказ успешно удален!']);
         }
         return Response::json(['error'=>'Произошла ошибка во время удаления заказа!']);
+    }
+
+    public function aboutOrder(Request $request, $id) {
+        $orders = Order::where('id',$id)->with('country','city','status','category', 'user')->get();
+        return Response::json($orders)->setStatusCode(200);
     }
 }
