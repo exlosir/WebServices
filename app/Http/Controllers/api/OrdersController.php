@@ -90,4 +90,12 @@ class OrdersController extends Controller
         $orders = Order::where('id',$id)->with('country','city','status','category', 'user')->get();
         return Response::json($orders)->setStatusCode(200);
     }
+
+    public function myOrders($id) {
+/*$id - ид пользователя авторизованного*/
+    $orders = Order::where('customer_id',$id)->with('country','city', 'status', 'user')->get();
+    if(!$orders->isEmpty())
+        return Response::json($orders);
+    return Response::json(['errors'=> 'Список ваших заказов пуст']);
+    }
 }

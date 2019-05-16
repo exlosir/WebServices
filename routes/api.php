@@ -40,6 +40,9 @@ Route::group(['middleware' => 'api'], function () {
         Route::post('/add/new/store', 'api\OrdersController@storeOrder');
         Route::delete('{id}/destroy', 'api\OrdersController@destroyOrder');
         Route::post('/{id}', 'api\OrdersController@aboutOrder');
+
+        /*Мои заказы*/
+        Route::get('/{id}/my-orders', 'api\OrdersController@myOrders');
     });
 
     /*Профиль пользователя*/
