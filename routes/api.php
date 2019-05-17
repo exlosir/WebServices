@@ -28,9 +28,12 @@ Route::post('check-session', function(Request $request) {
 });
 
 Route::group(['middleware' => 'api'], function () {
-    Route::get('test', function () {
-        return response()->json('kek');
-    });
+    /*Страны*/
+    Route::get('countries/get', 'api\CountryController@all');
+    /*Города*/
+    Route::get('cities/get', 'api\CityController@all');
+    /*Категории*/
+    Route::get('categories/get', 'api\CategoryController@all');
 
     /*Заказы*/
     Route::group(['prefix'=>'orders'], function() {

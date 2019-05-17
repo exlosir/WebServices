@@ -10,13 +10,9 @@ use Illuminate\Support\Facades\Response;
 
 class CountryController extends Controller
 {
-    public function country()
+    public function all()
     {
         $country = Country::all();
-
-        // return Response::json([
-        //     'country' => $country
-        // ])->setStatusCode(200);
-        return json_encode($country);
+        return Response::json($country);
     }
 }
