@@ -21,9 +21,11 @@ Route::get('login', 'api\CountryController@country');
 Route::post('register', 'api\auth\RegisterController@register');
 Route::post('login', 'api\auth\AuthController@login');
 Route::post('check-session', function(Request $request) {
-    $user = \App\User::where('api_token', $request->api_token)->get();
-    if (!$user->isEmpty())
+    if($request->api_token != null) {
+        $user = \App\User::where('api_token', $request->api_token)->get();
+        if (!$user->isEmpty())
         return Response::json(true)->setStatusCode(200);
+    }
     return Response::json(false)->setStatusCode(401);
 });
 

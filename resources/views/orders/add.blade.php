@@ -31,7 +31,7 @@
                 <div class="col-sm col-lg">
                     <div class="form-group mb-4">
                         <label for="" class="label text-dark">Цена (р.) <sup><i class="fa fa-asterisk text-danger"></i></sup></label>
-                        <input type="number" class="form-input input text-dark" name="price" value="{{old('price')}}">
+                        <input type="number" step="any" class="form-input input text-dark" name="price" value="{{old('price')}}">
                     </div>
                 </div>
 

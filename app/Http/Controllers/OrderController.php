@@ -47,7 +47,11 @@ class OrderController extends Controller
     public function search(Request $request) {
         if(Gate::allows('userEmailConfirmed', auth()->user())) {
             $categories = Category::children();
-            $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->where('name','like','%'.$request->search.'%')->orWhere('description','like','%'.$request->search.'%')->paginate(12); //выбираем все заказы
+            if(is_null($request->search)) {
+            $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->paginate(12); //выбираем все заказы
+            }else {
+                $orders = Order::where('status_id', '!=', Status::where('name', 'Закрыт')->first()->id)->where('name', 'like', '%' . $request->search . '%')->orWhere('description', 'like', '%' . $request->search . '%')->paginate(12); //выбираем все заказы
+            }
 
             return view('orders.index', ['orders'=>$orders, 'categories'=>$categories]);
         }
@@ -67,7 +71,7 @@ class OrderController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'description' => 'required',
-            'price' => 'required',
+            'price' => 'required| between:1,5',
             'category' => 'required',
             'country' => 'required',
             'city' => 'required',

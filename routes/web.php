@@ -21,9 +21,6 @@ Route::get('/logout', function () {
    return redirect('/');
 })->middleware('auth');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-
 Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'admin']], function() {
     Route::get('/', 'AdminController@index')->name('admin');
 
