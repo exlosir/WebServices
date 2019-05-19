@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->text('description');
             $table->bigInteger('customer_id')->unsigned();
             $table->double('price');
-            $table->timestamp('date_end')->nullable();
+            $table->dateTime('date_end')->nullable();
             $table->bigInteger('status_id')->unsigned();
             $table->bigInteger('category_id')->unsigned();
             $table->bigInteger('country_id')->unsigned();

@@ -20,7 +20,7 @@
                     @endempty
                     <span class="d-block"> Рейтинг: <i class="text-danger">{{ $user->rating ?? '0' }}</i></span>
                     <span class="d-block"> Выполнено заказов: <i class="text-danger">{{$countDoneOrders}}</i></span>
-                    <span class="d-block"> Заказов: <i class="text-danger">{{$countOrders}}</i></span>
+                    <span class="d-block"> Предложено заказов: <i class="text-danger">{{$countOrders}}</i></span>
                 </div>
                 <div class="col-12 col-md-9 col-lg-9">
                     <table class="table table-bordered">

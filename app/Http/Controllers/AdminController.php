@@ -13,7 +13,9 @@ class AdminController extends Controller
     public function index() {
         $countUsers = User::all()->count();
         $countOrders = Order::all()->count();
-        $countDoneOrders = OrderUser::where('status_id', Status::where('name', 'Закрыт')->first()->id)->get()->count();
+        $countDoneOrders = OrderUser::where('status_id', Status::where('name', 'Принят')->first()->id)->whereHas('order', function($q){
+            $q->where('status_id', Status::where('name', 'Закрыт')->first()->id);
+        })->get()->count();
     	return view('admin.index', compact(['countUsers', 'countOrders', 'countDoneOrders']));
     }
 }

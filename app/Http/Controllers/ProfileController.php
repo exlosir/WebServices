@@ -36,6 +36,12 @@ class ProfileController extends Controller
 //    }
 
     public function save(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'phone_number' => 'numeric|digits:11',
+            'email'=>'email'
+        ]);
+        if($validator->fails()) return redirect()->back()->withErrors($validator->errors());
+
         $user = $request->user();
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
