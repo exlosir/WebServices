@@ -13,7 +13,7 @@ class ProfileController extends Controller
 {
     public function index($id) { /*Отображение страницы профиля*/
         $countries = Country::all();
-        return Response::json(['user'=>User::where('id',$id)->with('city','country', 'gender')->get(), 'countries'=>$countries]);
+        return Response::json(['user'=>User::where('id',$id)->with('city','country', 'gender')->get()]);
     }
 
     public function getCities(Request $request) {
