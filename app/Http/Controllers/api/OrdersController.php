@@ -64,9 +64,9 @@ class OrdersController extends Controller
         $order->price = $request->price;
         $order->date_end = \Carbon\Carbon::parse($request->date_end)->format('Y-m-d H:i:s');
         $order->status_id = Status::where('name','Открыт')->get()->first()->id;
-        $order->category_id = $request->category;
-        $order->country_id = $request->country;
-        $order->city_id = $request->city;
+        $order->category_id = Category::where('name',$request->category)->first()->id;
+        $order->country_id = Country::where('name',$request->country)->first()->id;
+        $order->city_id = City::where('name',$request->city)->first()->id;
         $order->street = $request->street;
         $order->house = $request->house;
         $order->building = $request->building;
