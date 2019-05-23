@@ -18,7 +18,6 @@ class OrderController extends Controller
 
     public function index($category = null) {
 
-        if(Gate::allows('userEmailConfirmed', auth()->user())) {
             $categories = Category::children();
             if(empty($category)) {
                 $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->orderBy('created_at', 'desc')->paginate(12); // выбираем все заказы, т.к не выбрана категория
@@ -37,15 +36,15 @@ class OrderController extends Controller
                 }
 
             }
-
+        if(Gate::allows('userEmailConfirmed', auth()->user())) {
             return view('orders.index', ['orders'=>$orders, 'categories'=>$categories]);
+        }else {
+            return view('orders.index_for_not_confirmed_email', ['orders'=>$orders, 'categories'=>$categories]);
         }
-
-        return redirect()->back()->with('warning', 'Мы сожалеем, но для вас этот раздел закрыт, т.к вы не подтвердили E-mail!');
     }
 
     public function search(Request $request) {
-        if(Gate::allows('userEmailConfirmed', auth()->user())) {
+
             $categories = Category::children();
             if(is_null($request->search)) {
             $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->paginate(12); //выбираем все заказы
@@ -53,10 +52,11 @@ class OrderController extends Controller
                 $orders = Order::where('status_id', '!=', Status::where('name', 'Закрыт')->first()->id)->where('name', 'like', '%' . $request->search . '%')->orWhere('description', 'like', '%' . $request->search . '%')->paginate(12); //выбираем все заказы
             }
 
+        if(Gate::allows('userEmailConfirmed', auth()->user())) {
             return view('orders.index', ['orders'=>$orders, 'categories'=>$categories]);
+        }else {
+            return view('orders.index_for_not_confirmed_email', ['orders'=>$orders, 'categories'=>$categories]);
         }
-
-        return redirect()->back()->with('warning', 'Мы сожалеем, но для вас этот раздел закрыт, т.к вы не подтвердили E-mail!');
     }
 
     public function add() {

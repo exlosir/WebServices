@@ -77,9 +77,10 @@ Route::group(['prefix'=>'user', 'middleware'=>['auth']],function(){
     Route::get('orders/my-orders/for-execution', 'OrderController@myOrdersForExecution')->name('my-orders-for-execution');
 });
 
+/*Заказы*/
+Route::get('/orders/{category?}', 'OrderController@index')->name('orders');
+Route::post('/orders/search-order/search', 'OrderController@search')->name('orders-search');
 Route::group(['prefix'=>'orders', 'middleware'=>['auth']], function(){
-    Route::get('/{category?}', 'OrderController@index')->name('orders');
-    Route::post('/search-order/search', 'OrderController@search')->name('orders-search');
     Route::get('/new/add', 'OrderController@add')->name('add-order');
     Route::post('/add/save', 'OrderController@save')->name('save-order');
     Route::get('/{id}/more','OrderController@indexMore')->name('order-more');
