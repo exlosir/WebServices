@@ -1,15 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
-
-<div class="container">
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4">Jumbotron</h1>
-            <p class="lead">Это модифицированный jumbotron, который занимает все горизонтальное пространство своего родителя.</p>
+    <div class="container" style="z-index: 5;">
+        <div class="row justify-content-center ">
+            <h3 style="z-index: 3;">У тебя проблемы!? <img src="{{asset('assets/gpt.png')}}" alt="" style="width: 50px;"> Здесь тебе помогут!</h3>
+        </div>
+        <div class="row justify-content-center">
+            <h5 class="lead">Найдем того, кто решит твою проблему!</h5>
+        </div>
+        <div class="row justify-content-center">
+            <form action="{{route('orders-search')}}" class="form w-100" method="POST">
+                @csrf
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" name="search" aria-label="Large" aria-describedby="inputGroup-sizing-sm" placeholder="Введите запрос">
+                    <div class="input-group-append">
+                        <input class="btn btn-success" type="submit" id="button-addon2" value="Искать">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+<div class="main">
 </div>
+<div class="bg-dark">
 
-    {{--.container>.row>p>lorem2000--}}
+</div>
 @endsection

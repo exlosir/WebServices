@@ -21,7 +21,7 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-fixed-top nav-top">
+    <nav class="navbar navbar-fixed-top nav-top" style="z-index: 2">
         <div class="container">
             <div class="col-0 col-md-1 col-lg-1">
                 <a href="/" class=""><div class="navbar-brand logo-top-nav"></div></a>
@@ -43,7 +43,7 @@
     </nav>
 
  {{--Боковое меню--}}
-    <div class="nav-left-wrapper">
+    <div class="nav-left-wrapper" style="z-index: 2">
         <div class="nav-left">
             <div class="nav-left-brand d-flex flex-column justify-content-center align-items-center">
                 <div class="logo-left-nav"></div>

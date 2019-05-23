@@ -329,6 +329,31 @@ body {
     transform: rotate(-45deg);
 }
 
+/*Главная страница приложения*/
+
+.main {
+    background: url("../assets/main_1.jpg") no-repeat;
+    background-size: 1000px auto;
+    background-position-x: center;
+    height: 450px;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 450px;
+    top: 100px;
+
+}
+.bg-dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    opacity: 0.1;
+}
+
 /*Текст заголовка авторизации и регистрации*/
 
 .t-dashed-auth {
