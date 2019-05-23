@@ -62,7 +62,7 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col">
-                                        {{--Статус - <span class="{{$order->status->name == 'Открыт' ? 'text-success' : 'text-danger'}}">{{$order->status->name}}</span>--}}
+                                        Статус - <span class="{{$order->status->name == 'Открыт' ? 'text-success' : 'text-danger'}}">{{$order->status->name}}</span>
                                     </div>
                                     <div class="col text-right">
                                         @if(\Carbon\Carbon::parse($order->date_end) < \Carbon\Carbon::now())
