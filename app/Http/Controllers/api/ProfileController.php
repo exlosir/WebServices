@@ -4,10 +4,12 @@ namespace App\Http\Controllers\api;
 
 use App\City;
 use App\Country;
+use App\Gender;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 
 class ProfileController extends Controller
 {
@@ -35,9 +37,9 @@ class ProfileController extends Controller
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->patronymic = $request->patronymic;
-        $user->gender_id = $request->gender;
-        $user->country_id = $request->country;
-        $user->city_id = $request->city;
+        $user->gender_id = Gender::where('name',$request->gender)->first()->id;
+        $user->country_id = Country::where('name',$request->country)->first()->id;
+        $user->city_id = City::where('name',$request->city)->first()->id;;
         $user->birthday = $request->birthday;
         $user->email = $request->email;
         $user->phone_number = $request->phone_number;
@@ -76,5 +78,15 @@ class ProfileController extends Controller
             }
         }
         return Response::json(['error'=>'Произошла ошибка. Профиль не был удален!'])->setStatusCode(400);
+    }
+
+    public function uploadImageProfile (Request $request) {
+        $user = User::where('api_token',$request->api_token)->first();
+        $image = $request->file('image');
+        $imageName = $user->email.'_'. Str::random().'.'.$image->getClientOriginalExtension();
+
+        $image->move(public_path("/profiles/".$user->email."/"), $imageName);
+
+        return Response::json("Фотография успешно сохранена!");
     }
 }

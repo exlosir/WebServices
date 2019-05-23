@@ -22,11 +22,11 @@ class AuthController extends Controller
 
         $userHashedPassword = User::where('login', $request->login)->first()->password;
         if (Hash::check($request->password, $userHashedPassword)) {
-            $user = User::where('login', $request->login)->first();
+            $user = User::where('login', $request->login)->with('city.name')->first();
             // dd($user);
             if (!is_null($user)) {
                 $user->update(['api_token' => Str::random()]);
-                return Response::json($user)->setStatusCode(200, 'Succsessful authorization');
+                return Response::json($user)->setStatusCode(200, 'Successful authorization');
             }
         }
 
