@@ -22,7 +22,7 @@ class AuthController extends Controller
 
         $userHashedPassword = User::where('login', $request->login)->first()->password;
         if (Hash::check($request->password, $userHashedPassword)) {
-            $user = User::where('login', $request->login)->with('city.name')->first();
+            $user = User::where('login', $request->login)->first();
             // dd($user);
             if (!is_null($user)) {
                 $user->update(['api_token' => Str::random()]);

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\api;
 use App\City;
 use App\Country;
 use App\Gender;
+use App\Order;
+use App\OrderUser;
+use App\Status;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,8 +17,14 @@ use Illuminate\Support\Str;
 class ProfileController extends Controller
 {
     public function index($id) { /*Отображение страницы профиля*/
-        $countries = Country::all();
-        return Response::json(User::where('id',$id)->with('city','country', 'gender')->get());
+        $user = User::where('id',$id)->with('city','country', 'gender')->first();
+        $countOrders = Order::where('customer_id', $user->id)->get()->count();
+        $countDoneOrders = OrderUser::where('user_id', $user->id)->where('status_id',Status::where('name', 'Принят')->first()->id)->whereHas('order', function($q){
+            $q->where('status_id', Status::where('name', 'Закрыт')->first()->id);
+        })->get()->count();
+        $user->countOrders = $countOrders ? $countOrders : null;
+        $user->countDoneOrders = $countDoneOrders ? $countDoneOrders : null;
+        return Response::json($user);
     }
 
     public function getCities(Request $request) {
