@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 class OrdersController extends Controller
 {
     public function allOrders() {
-        $orders = Order::with('country','city','status','category')->get();
+        $orders = Order::with('country','city','status','category')->orderBy('created_at', 'desc')->get();
 //        $orders = new Collection();
 //        foreach(Order::all() as $order) {
 //            $order->status_id = $order->status()->first()->name;
