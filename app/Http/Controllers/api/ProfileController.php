@@ -95,6 +95,9 @@ class ProfileController extends Controller
         $imageName = $user->email.'_'. Str::random().'.'.$image->getClientOriginalExtension();
 
         $image->move(public_path("/profiles/".$user->email."/"), $imageName);
+        $user->update([
+           'image_profile'=>$imageName
+        ]);
 
         return Response::json("Фотография успешно сохранена!");
     }
