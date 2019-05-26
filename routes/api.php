@@ -36,6 +36,8 @@ Route::group(['middleware' => 'api'], function () {
     Route::get('cities/get', 'api\CityController@all');
     /*Категории*/
     Route::get('categories/get', 'api\CategoryController@all');
+    /*Пол*/
+    Route::get('genders/get', 'api\GendersController@all');
 
     /*Заказы*/
     Route::group(['prefix'=>'orders'], function() {
