@@ -11,7 +11,7 @@ class GendersController extends Controller
 {
     public function all()
     {
-        $country = Gender::all();
-        return Response::json($country);
+        $genders = Gender::all();
+        return Response::json($genders);
     }
 }
