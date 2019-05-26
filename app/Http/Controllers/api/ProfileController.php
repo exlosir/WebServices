@@ -83,10 +83,10 @@ class ProfileController extends Controller
         $user = User::find($id);
         if(!is_null($user)){
             if ($user->delete()) {
-                return Response::json(['success'=>'Профиль успешно удален!'])->setStatusCode(200);
+                return Response::json('success')->setStatusCode(200);
             }
         }
-        return Response::json(['error'=>'Произошла ошибка. Профиль не был удален!'])->setStatusCode(400);
+        return Response::json('error')->setStatusCode(400);
     }
 
     public function uploadImageProfile (Request $request) {
