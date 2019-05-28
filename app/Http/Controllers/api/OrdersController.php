@@ -81,9 +81,9 @@ class OrdersController extends Controller
         $order = Order::find($id);
         if($order->user->id == $request->user_id){
             $order->delete();
-            return Response::json(['success'=>'Заказ успешно удален!']);
+            return Response::json('Заказ успешно удален!');
         }
-        return Response::json(['error'=>'Произошла ошибка во время удаления заказа!']);
+        return Response::json('Произошла ошибка во время удаления заказа!');
     }
 
     public function aboutOrder(Request $request, $id) {
@@ -96,6 +96,6 @@ class OrdersController extends Controller
     $orders = Order::where('customer_id',$id)->with('country','city', 'status', 'user')->get();
     if(!$orders->isEmpty())
         return Response::json($orders);
-    return Response::json(['errors'=> 'Список ваших заказов пуст']);
+    return Response::json('Список ваших заказов пуст');
     }
 }

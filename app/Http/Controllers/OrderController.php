@@ -16,23 +16,25 @@ use Illuminate\Support\Facades\Validator;
 class OrderController extends Controller
 {
 
+    private $perPage = 5;
     public function index($category = null) {
 
             $categories = Category::children();
             if(empty($category)) {
-                $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->orderBy('created_at', 'desc')->paginate(12); // выбираем все заказы, т.к не выбрана категория
+                $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->orderBy('created_at', 'desc')->paginate($this->perPage); // выбираем все заказы, т.к не выбрана категория
 
             } else {
-                $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->where('category_id',$category)->paginate(12); //выбираем заказы указанной категории
-
+                $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->where('category_id',$category)->orderBy('created_at', 'desc')->paginate($this->perPage); //выбираем заказы указанной категории
                 if($orders->isEmpty()) { // если не было найдено заказов по такой категории, ищем все заказы по родительской категори
                     $cat = Category::find($category); // выбираем категорию
-                    if(!empty($cat) && empty($cat->parent_id)){ // проверяем, является ли категория родительской
-                        $cat = Category::where('parent_id',$cat->id)->get()->pluck('id')->toarray(); // выбираем все дочерние категории
-                        $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->whereIn('category_id',$cat)->paginate(12); // выбираем все заказы, которые относятся к родительской и ее дочерним категориям
-                    }else {
-                        return view('orders.index', ['orders'=>$orders, 'categories'=>$categories])->withErrors(['Такой категории не существует!', 'Выберите уже имеющуюся категорию.']);
-                    }
+                    if(!empty($cat) && !$cat->parent_id){ // проверяем, является ли категория родительской
+                        $parent_id = $cat->id;
+                        $cat = Category::where('parent_id',$parent_id)->get()->pluck('id')->toarray(); // выбираем все дочерние категории
+                        $cat[] = $parent_id; // добавляем ко всем дочерним родительскую категорию
+                        $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->whereIn('category_id',$cat)->paginate($this->perPage); // выбираем все заказы, которые относятся к родительской и ее дочерним категориям
+                    }/*else { // дочерняя категория
+                        $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->where('category_id',$category)->orderBy('created_at', 'desc')->paginate(12); //выбираем заказы указанной категории
+                    }*/
                 }
 
             }
@@ -47,9 +49,9 @@ class OrderController extends Controller
 
             $categories = Category::children();
             if(is_null($request->search)) {
-            $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->paginate(12); //выбираем все заказы
+            $orders = Order::where('status_id','!=',Status::where('name','Закрыт')->first()->id)->paginate($this->perPage); //выбираем все заказы
             }else {
-                $orders = Order::where('status_id', '!=', Status::where('name', 'Закрыт')->first()->id)->where('name', 'like', '%' . $request->search . '%')->orWhere('description', 'like', '%' . $request->search . '%')->paginate(12); //выбираем все заказы
+                $orders = Order::where('status_id', '!=', Status::where('name', 'Закрыт')->first()->id)->where('name', 'like', '%' . $request->search . '%')->orWhere('description', 'like', '%' . $request->search . '%')->paginate($this->perPage); //выбираем все заказы
             }
 
         if(Gate::allows('userEmailConfirmed', auth()->user())) {
@@ -129,23 +131,7 @@ class OrderController extends Controller
     public function myOrderIndex(Request $request, Order $order) {
         if(Gate::allows('userEmailConfirmed', auth()->user())) {
             $categories = Category::children();
-//            if(empty($category)) {
-                $orders = Order::where('customer_id',$request->user()->id)->orderBy('created_at', 'desc')->paginate(12); // выбираем все заказы, т.к не выбрана категория
-
-//            } else {
-//                $orders = Order::where('customer_id', $request->user()->id)->where('category_id',$category)->paginate(12); //выбираем заказы указанной категории
-//
-//                if($orders->isEmpty()) { // если не было найдено заказов по такой категории, ищем все заказы по родительской категори
-//                    $cat = Category::find($category); // выбираем категорию
-//                    if(!empty($cat) && empty($cat->parent_id)){ // проверяем, является ли категория родительской
-//                        $cat = Category::where('parent_id',$cat->id)->get()->pluck('id')->toarray(); // выбираем все дочерние категории
-//                        $orders = Order::where('customer_id', $request->user()->id)->whereIn('category_id',$cat)->paginate(12); // выбираем все заказы, которые относятся к родительской и ее дочерним категориям
-//                    }else {
-//                        return view('orders.index', ['orders'=>$orders, 'categories'=>$categories])->withErrors(['Такой категории не существует!', 'Выберите уже имеющуюся категорию.']);
-//                    }
-//                }
-//
-//            }
+                $orders = Order::where('customer_id',$request->user()->id)->orderBy('created_at', 'desc')->paginate($this->perPage); // выбираем в
 
             return view('orders.my-orders', ['orders'=>$orders, 'categories'=>$categories]);
         }
@@ -156,16 +142,10 @@ class OrderController extends Controller
     public function myOrdersForExecution(Request $request) {
         if(Gate::allows('userEmailConfirmed', auth()->user())) {
             $user = $request->user();
-//            $orders = OrderUser::where('user_id', $user->id)->where('status_id', Status::where('name','Принят')->first()->id)->paginate(12);
-//            $orders = OrderUser::where('user_id', $user->id)->where('status_id', Status::where('name','Принят')->first()->id)->whereHas('order', function($q){
-//                $q->where('status_id', Status::where('name', 'В исполнении')->first()->id);
-//            })->paginate(12);
             $orders = OrderUser::where('user_id', $user->id)->where('status_id', Status::where('name','Принят')->first()->id)->whereHas('order', function($q){
                 $q->where('status_id',Status::where('name','В исполнении')->first()->id);
-            })->paginate(12);
-//            dd($orders);
+            })->paginate($this->perPage);
             $categories = Category::children();
-//            $orders = Order::where('customer_id',$request->user()->id)->orderBy('created_at', 'desc')->paginate(12);
 
             return view('orders.my-orders-for-execution', ['orders'=>$orders, 'categories'=>$categories]);
         }

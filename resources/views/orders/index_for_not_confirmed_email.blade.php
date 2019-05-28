@@ -55,7 +55,8 @@
                     </div>
                 </form>
             </div>
-            <div class="row">
+            <div class="row justify-content-center">
+                @if(!$orders->isEmpty())
                 @foreach($orders as $order)
                     <div class="card w-100 d-flex flex-row mb-4">
                         <div class="flex-wrap w-100">
@@ -112,6 +113,9 @@
                 @endforeach
 
                 {{$orders->links()}}
+                @else
+                    <h4 class="text-center">Заказов по данной категории нет!</h4>
+                @endif
             </div>
         </div>
     </div>

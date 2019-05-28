@@ -16,6 +16,10 @@ class Category extends Model
         return Category::where('parent_id',$parent)->orderBy('name','desc')->get();
     }
 
+    public function parent() {
+        return $this->belongsTo(Category::class, 'parent_id', 'id');
+    }
+
     public function isPublished() {
         return !! $this->published;
     }
