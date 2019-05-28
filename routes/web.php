@@ -14,6 +14,10 @@
 Route::get('/', function () {
     return view('index');
 });
+
+//Route::get('/email', function () {
+//   return view('mails.email-confirmation');
+//});
 Auth::routes();
 
 Route::get('/logout', function () {
