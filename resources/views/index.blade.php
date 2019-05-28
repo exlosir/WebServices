@@ -3,7 +3,7 @@
 @section('content')
     <div class="container" style="z-index: 5;">
         <div class="row justify-content-center ">
-            <h3 style="z-index: 3;">У тебя проблемы!? <img src="{{asset('assets/gpt.png')}}" alt="" style="width: 50px;"> Здесь тебе помогут!</h3>
+            <h3 style="z-index: 3;">Не знаешь как решить свою проблему?</h3>
         </div>
         <div class="row justify-content-center">
             <h5 class="lead">Найдем того, кто решит твою проблему!</h5>
