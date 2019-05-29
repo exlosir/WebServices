@@ -6,7 +6,9 @@ use App\Category;
 use App\City;
 use App\Country;
 use App\Order;
+use App\OrderUser;
 use App\Status;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Collection;
@@ -97,5 +99,21 @@ class OrdersController extends Controller
     if(!$orders->isEmpty())
         return Response::json($orders);
     return Response::json('Список ваших заказов пуст');
+    }
+
+    public function myOrdersForExecution(Request $request) {
+        /* @params
+         * user_id
+         * */
+        $ord = new Collection();
+        $user = User::find($request->user_id);
+        $orders = OrderUser::where('user_id', $user->id)->where('status_id', Status::where('name','Принят')->first()->id)->whereHas('order', function($q){
+            $q->where('status_id',Status::where('name','В исполнении')->first()->id);
+        })->with('order', 'order.city', 'order.country', 'order.category', 'order.status')->get();
+        foreach ($orders as $order) {
+            $ord->push($order->order);
+        }
+
+        return Response::json($ord);
     }
 }

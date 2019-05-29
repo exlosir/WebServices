@@ -50,6 +50,12 @@ Route::group(['middleware' => 'api'], function () {
 
         /*Мои заказы*/
         Route::get('/{id}/my-orders', 'api\OrdersController@myOrders');
+
+        Route::get('/{id}/order-master','api\OrderUserController@getRespondedUser');
+        Route::get('/for-execution', 'api\OrdersController@myOrdersForExecution');
+        Route::group(['prefix'=>'order-master'], function(){
+            Route::post('/add', 'api\OrderUserController@add');
+        });
     });
 
     /*Профиль пользователя*/
