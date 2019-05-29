@@ -7,7 +7,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-light">
                     <li class="breadcrumb-item"><a href="{{url('admin')}}">Админ панель</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Города</li>
+                    <li class="breadcrumb-item active" aria-current="page">Категории</li>
                 </ol>
             </nav>
         </div>

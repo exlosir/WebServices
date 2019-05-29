@@ -14,7 +14,7 @@
 
         <div class="row justify-content-center">
             <div class="card w-75">
-                <div class="card-header">Создание новой записи в таблице Стран</div>
+                <div class="card-header">Создание новой записи в таблице Городов</div>
                 <div class="card-body">
                     <form action="{{route('city.store')}}" class="form" method="POST">
                         @csrf
