@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Validator;
 class OrdersController extends Controller
 {
     public function allOrders() {
-        $orders = Order::with('country','city','status','category')->orderBy('created_at', 'desc')->get();
+        $orders = Order::where('status_id', '!=', Status::where('name', 'Закрыт')->first()->id)->with('country','city','status','category')->orderBy('created_at', 'desc')->get();
 //        $orders = new Collection();
 //        foreach(Order::all() as $order) {
 //            $order->status_id = $order->status()->first()->name;
@@ -33,7 +33,7 @@ class OrdersController extends Controller
 
     public function searchOrders(Request $request) {
         // передать параметр search || POST запрос
-        $orders = Order::where('name', 'like', "%".$request->search."%")->orWhere('description', 'like', "%".$request->search."%")->with('country','city','status','category')->get();
+        $orders = Order::where('status_id', '!=', Status::where('name', 'Закрыт')->first()->id)->where('name', 'like', "%".$request->search."%")->orWhere('description', 'like', "%".$request->search."%")->with('country','city','status','category')->get();
         return Response::json($orders);
     }
 
