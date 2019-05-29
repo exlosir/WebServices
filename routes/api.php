@@ -53,6 +53,7 @@ Route::group(['middleware' => 'api'], function () {
 
         Route::get('/{id}/order-master','api\OrderUserController@getRespondedUser');
         Route::get('/for-execution', 'api\OrdersController@myOrdersForExecution');
+        Route::post('/feedback/save', 'api\OrdersController@closeAndFeedback');
         Route::group(['prefix'=>'order-master'], function(){
             Route::post('/add', 'api\OrderUserController@add');
         });
