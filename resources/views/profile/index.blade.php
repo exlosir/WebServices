@@ -9,7 +9,7 @@
             <div class="col-3 col-12">
                 <div class="row">
                     <div class="col-12 col-md-3 col-lg-3">
-                        @if(is_null($user->image_profile))
+                        @if(!$user->image_profile)
                             <img src="{{ asset('assets/img-placeholder.png') }}" alt="" class="img-profile mb-3 btn-br">
                         @else
                             <img src="{{ asset('profiles/'.$user->email.'/'.$user->image_profile) }}" alt="" class="img-profile mb-3 btn-br">

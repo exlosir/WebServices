@@ -18,7 +18,7 @@
                     <div class="order-header-bottom pt-3 pb-3">
                         <div class="row ml-0 text-center">
                             <div class="col border-right"><span class="text-success">{{$order->status->name}}</span></div>
-                            <div class="col border-right">cоздано {{\Carbon\Carbon::parse($order->created_at)->format('d.m.Y H:i')}}</div>
+                            <div class="col border-right">Cоздано {{\Carbon\Carbon::parse($order->created_at)->format('d.m.Y H:i')}}</div>
                             <div class="col">{{$order->category->name}}</div>
                         </div>
                     </div>
@@ -36,7 +36,15 @@
                                                 Неизвестный пользователь
                                             @endif
                                         </a></td>
-                                </tr
+                                </tr>
+                                <tr>
+                                    @if($order->usersPivot()->where('user_id',auth()->user()->id)->first())
+                                        @if($order->usersPivot()->where('user_id',auth()->user()->id)->first()->pivot->statuses_name == 'Принят' and $order->status->name == 'В исполнении')
+                                            <th scope="row">Номер телефона заказчика</th>
+                                            <td>{{$order->user->phone_number}}</td>
+                                        @endif
+                                    @endif
+                                </tr>
                                 <tr>
                                     <th scope="row" class="w-25">Стоимость</th>
                                     <td>{{$order->price}} р.</td>
@@ -121,28 +129,29 @@
                     </div>
 
                     <p class="pt-2 pl-4">Выбери того, кто выполнит твой заказ</p>
-                    <div class="card-body d-flex flex-row">
+                    <div class="card-body">
                         <div class="row">
                         @if(!$order->users->isEmpty())
                         @foreach($order->users as $user)
                             <div class="col-12 col-md-6 col-lg-4">
 
-                                <div class="div respond-wrapper d-flex flex-row mr-3 mb-3">
-                                    @if(is_null($user->image_profile))
-                                        <img src="{{ asset('assets/img-placeholder.png') }}" alt="" class="respond-img align-items-center">
+                                <div class="d-flex flex-row mb-3">
+                                    @if(!$user->image_profile)
+
+                                        <div class="mr-3"><img src="{{ asset('assets/img-placeholder.png') }}" alt="" class="respond-img align-items-center"></div>
                                     @else
-                                        <img src="{{ asset('profiles/'.$user->email.'/'.$user->image_profile) }}" alt="" class="respond-img align-items-center">
+                                        <div class="mr-3"><img src="{{ asset('profiles/'.$user->email.'/'.$user->image_profile) }}" alt="" class="respond-img align-items-center"></div>
                                     @endif
                                     <div class="div d-flex flex-column pl-2">
-                                        <div class="float-right"><a href="{{route('user-page', $user->id)}}">{{$user->last_name ? $user->last_name : 'Имя'}} {{$user->first_name ? $user->first_name : 'Фамилия'}}</a></div>
-                                        <div class="d-flex flex-row">Рейтинг: <span class="badge badge-secondary align-self-center ml-1">{{$user->rating? $user->rating : '0'}}</span></div>
-                                        <div class="d-flex flex-row">
+                                        <div><a href="{{route('user-page', $user->id)}}">{{$user->last_name ? $user->last_name : 'Имя'}} {{$user->first_name ? $user->first_name : 'Фамилия'}}</a></div>
+                                        <div>Рейтинг: <span class="badge badge-secondary align-self-center ml-1">{{$user->rating? $user->rating : '0'}}</span></div>
+                                        <div>
                                             Статус: <span class="{{$order->usersPivot()->where('user_id', $user->id)->first()->pivot->statuses_name == 'Принят' ? 'text-success' : 'text-warning'}}   {{$order->usersPivot()->where('user_id', $user->id)->first()->pivot->statuses_name == 'Отклонен' ? 'text-danger' : 'text-warning'}} ">{{$order->usersPivot()->where('user_id', $user->id)->first()->pivot->statuses_name}}</span>
                                         </div>
                                         @if($order->usersPivot()->where('user_id', $user->id)->first()->pivot->statuses_name == 'В ожидании')
                                             <form action="{{route('accept-master-order',[$order, $user])}}" class="form" method="post">
                                                 @csrf
-                                                <button type="submit" class="btn btn-outline-success">Выбрать</button>
+                                                <button type="submit" class="btn btn-success btn-block">Выбрать</button>
                                             </form>
                                         @endif
                                     </div>

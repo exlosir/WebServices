@@ -12,7 +12,7 @@
             {{--Блок информации о пользователе--}}
             <div class="row mb-5">
                 <div class="col-12 col-md-3 col-lg-3">
-                    @empty($user->image_profile)
+                    @empty(!$user->image_profile)
                         <img src="{{ asset('assets/img-placeholder.png') }}" alt="" class="mb-3 btn-br img-thumbnail">
                     @else
                         <img src="{{ asset('profiles/'.$user->email.'/'.$user->image_profile) }}" alt=""
