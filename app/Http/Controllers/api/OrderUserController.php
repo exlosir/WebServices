@@ -59,4 +59,33 @@ class OrderUserController extends Controller
         }
         return Response::json(false);
     }
+
+    public function acceptMaster(Request $request,$order_id, $master_id) {
+        /* @params
+         *  вставить в url
+         *  order id
+         *  master id (id пользователя в таблице users, который откликнулся на заказ)
+         * */
+        $order = Order::find($order_id);
+        $master = User::find($master_id);
+
+        $statusAcceptId = Status::where('name', 'Принят')->first()->id;
+        $statusWaitId = Status::where('name', 'В ожидании')->first()->id;
+        $statusDeclineId = Status::where('name', 'Отклонен')->first()->id;
+
+        $currUser = $order->usersPivot()->where('user_id', $master->id)->get(); //находим выбранного пользователя
+        $currUser->first()->pivot->status_id = $statusAcceptId; //изменяем его статус в Pivot таблице
+        $currUser->first()->pivot->save(); // сохраняем
+        /*Отклоняем всех, кроме выбранного пользователя*/
+        foreach($order->usersPivot as $user) { // перебираем всех пользователей
+            if($user->pivot->status_id == $statusWaitId){ // проверяем их статус = в ожидании
+                $user->pivot->status_id = $statusDeclineId; // меняем и сохраняем
+                $user->pivot->save();
+            }
+        }
+        /*Меняем статус заказа на 'В исполнении' */
+        $order->status_id = Status::where('name', 'В исполнении')->first()->id;
+        $order->save();
+        return Response::json(true);
+    }
 }

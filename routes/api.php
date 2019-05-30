@@ -56,6 +56,7 @@ Route::group(['middleware' => 'api'], function () {
         Route::post('/feedback/save', 'api\OrdersController@closeAndFeedback');
         Route::group(['prefix'=>'order-master'], function(){
             Route::post('/add', 'api\OrderUserController@add');
+            Route::post('{order}/accept-master/{master}', 'api\OrderUserController@acceptMaster')->name('accept-master-order');
             Route::get('/execute-master', 'api\OrderUserController@executeOrderMaster');
         });
     });
