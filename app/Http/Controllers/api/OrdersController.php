@@ -96,11 +96,11 @@ class OrdersController extends Controller
     }
 
     public function myOrders($id) {
-/*$id - ид пользователя авторизованного*/
-    $orders = Order::where('customer_id',$id)->with('country','city', 'status', 'user')->get();
-    if(!$orders->isEmpty())
-        return Response::json($orders);
-    return Response::json('Список ваших заказов пуст');
+        /*$id - ид пользователя авторизованного*/
+        $orders = Order::where('customer_id',$id)->with('country','city', 'status', 'user', 'category')->get();
+        if(!$orders->isEmpty())
+            return Response::json($orders);
+        return Response::json('Список ваших заказов пуст');
     }
 
     public function myOrdersForExecution(Request $request) {
