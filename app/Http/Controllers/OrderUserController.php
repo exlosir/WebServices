@@ -18,7 +18,7 @@ class OrderUserController extends Controller
         $created_updated_at = \Carbon\Carbon::now();
 
         $order->users()->attach($user,array('status_id'=>$statusId, 'created_at'=>$created_updated_at, 'updated_at'=>$created_updated_at));
-        return redirect()->back()->with('success', 'Ваш предложение принято! Ожидайте ответа Заказчика!');
+        return redirect()->back()->with('success', 'Ваше предложение принято! Ожидайте ответа Заказчика!');
     }
 
     public function acceptMaster(Request $request, Order $order, User $master) {

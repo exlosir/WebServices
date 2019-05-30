@@ -29,13 +29,17 @@ class OrderUserController extends Controller
          * user_id
          * order_id
          * */
-        $order = Order::find($request->order_id);
-        $user = User::find($request->user_id);
+        $exists = OrderUser::where('user_id', $request->user_id)->where('order_id', $request->order_id)->get();
+        if(!$exists->isEmpty()) {
+            $order = Order::find($request->order_id);
+            $user = User::find($request->user_id);
 
-        $statusId = Status::where('name','В ожидании')->get()->first()->id;
-        $created_updated_at = \Carbon\Carbon::now();
+            $statusId = Status::where('name','В ожидании')->get()->first()->id;
+            $created_updated_at = \Carbon\Carbon::now();
 
-        $order->users()->attach($user,array('status_id'=>$statusId, 'created_at'=>$created_updated_at, 'updated_at'=>$created_updated_at));
-        return Response::json('Ваш предложение принято! Ожидайте ответа Заказчика!');
+            $order->users()->attach($user,array('status_id'=>$statusId, 'created_at'=>$created_updated_at, 'updated_at'=>$created_updated_at));
+            return Response::json(true);
+        }
+        return Response::json(false);
     }
 }
