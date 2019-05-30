@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Order;
+use App\OrderUser;
 use App\Status;
 use App\User;
 use Illuminate\Http\Request;
@@ -15,8 +16,12 @@ class OrderUserController extends Controller
         /* вставить в url
          * id заказа
          * */
-        $order = Order::find($id)->users;
-        return Response::json($order);
+        $order = Order::find($id)->usersPivot;
+        $order1 = Order::find($id)->users;
+        foreach ($order1 as $index => $item) {
+            $item->status_master = $order[$index]->pivot->statuses_name;
+        }
+        return Response::json($order1);
     }
 
     public function add(Request $request) {
