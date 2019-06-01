@@ -69,6 +69,7 @@ Route::group(['middleware' => 'api'], function () {
         Route::post('/password/change/save', 'api\ProfileController@changePassword');
         Route::delete('/{id}/destroy', 'api\ProfileController@destroy');
         Route::post('/upload-image-profile', 'api\ProfileController@uploadImageProfile');
+        Route::get('/{id}/get-portfolio', 'api\ProfileController@getPortfolio');
     });
 
 });

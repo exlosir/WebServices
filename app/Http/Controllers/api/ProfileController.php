@@ -11,6 +11,7 @@ use App\Status;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Str;
 
@@ -100,5 +101,19 @@ class ProfileController extends Controller
         ]);
 
         return Response::json("Фотография успешно сохранена!");
+    }
+
+    /**
+     * @param $id - пользователя
+     */
+    public function getPortfolio($id) {
+        $feedbacks = DB::table('order_user')->
+                    join('rating_order', 'order_user.id', '=', 'rating_order.order_user')->
+                    join('orders', 'order_user.order_id', '=', 'orders.id')->
+                    where('order_user.user_id', '=' ,$id)->
+                    select('orders.name as order_name', 'rating_order.description', 'rating_order.rating', 'rating_order.created_at as created')->
+                    get();
+        if($feedbacks->isEmpty()) return Response::json(false);
+        return Response::json($feedbacks);
     }
 }
