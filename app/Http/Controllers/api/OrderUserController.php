@@ -32,7 +32,7 @@ class OrderUserController extends Controller
          * order_id
          * */
         $exists = OrderUser::where('user_id', $request->user_id)->where('order_id', $request->order_id)->get();
-        if (!$exists->isEmpty()) {
+        if ($exists->isEmpty()) {
             $order = Order::find($request->order_id);
             $user = User::find($request->user_id);
 
