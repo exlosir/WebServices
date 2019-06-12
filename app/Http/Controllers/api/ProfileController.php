@@ -97,7 +97,7 @@ class ProfileController extends Controller
 
         $image->move(public_path("/profiles/".$user->email."/"), $imageName);
         $user->update([
-           'image_profile'=>$imageName
+            'image_profile'=>$imageName
         ]);
 
         return Response::json("Фотография успешно сохранена!");
@@ -108,11 +108,11 @@ class ProfileController extends Controller
      */
     public function getPortfolio($id) {
         $feedbacks = DB::table('order_user')->
-                    join('rating_order', 'order_user.id', '=', 'rating_order.order_user')->
-                    join('orders', 'order_user.order_id', '=', 'orders.id')->
-                    where('order_user.user_id', '=' ,$id)->
-                    select('orders.name as order_name', 'rating_order.description', 'rating_order.rating', 'rating_order.created_at as created')->
-                    get();
+        join('rating_order', 'order_user.id', '=', 'rating_order.order_user')->
+        join('orders', 'order_user.order_id', '=', 'orders.id')->
+        where('order_user.user_id', '=' ,$id)->
+        select('orders.id as order_id','orders.name as order_name', 'rating_order.description', 'rating_order.rating', 'rating_order.created_at as created')->
+        get();
         if($feedbacks->isEmpty()) return Response::json(false);
         return Response::json($feedbacks);
     }
